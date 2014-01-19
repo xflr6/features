@@ -1,5 +1,6 @@
 *.py[cod]
 MANIFEST
 dist/
+build/
 *.egg-info/
 Thumbs.db

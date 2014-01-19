@@ -7,7 +7,7 @@ except ImportError:
 
 setup(
     name='features',
-    version='0.1',
+    version='0.1.1',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Feature set algebra for linguistics',
@@ -15,6 +15,9 @@ setup(
     keywords='lattice morphology phonology learning fca',
     url='http://github.com/xflr6/features',
     packages=['features'],
+    package_data = {
+        'features': ['config.ini'],
+    },
     install_requires=[
         'fileconfig==0.4',
         'concepts==0.3',
