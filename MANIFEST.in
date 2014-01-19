@@ -1,0 +1,2 @@
+include README.rst LICENSE CHANGES features/config.ini run-tests.py visualize-systems.py 
+recursive-include docs *.png *.ini
