@@ -7,7 +7,7 @@ except ImportError:
 
 setup(
     name='features',
-    version='0.1.1',
+    version='0.1.2',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Feature set algebra for linguistics',

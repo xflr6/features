@@ -5,27 +5,25 @@ Features
 
 Features is a simple implementation of **feature set algebra** in Python.
 
-Linguistic analyses commonly use sets of **binary or privative features**
-to refer to different groups of linguistic objects: for example a group
-of *phonemes* that share some phonological features like
-``[-consonantal, +high]`` or a set of *morphemes* that occur in context
-of a specific person/number combination like ``[-participant, GROUP]``.
-Usually, the features are applied in a way such that only **some of their
-combinations are valid**, while others are impossible (i.e. refer to
-no object) – for example ``[+high, +low]``, or ``[-participant, +speaker]``.
+Linguistic analyses commonly use sets of **binary or privative features** to
+refer to different groups of linguistic objects: for example a group of
+*phonemes* that share some phonological features like ``[-consonantal, +high]``
+or a set of *morphemes* that occur in context of a specific person/number
+combination like ``[-participant, GROUP]``. Usually, the features are applied in
+a way such that only **some of their combinations are valid**, while others are
+impossible (i.e. refer to no object) |--| for example ``[+high, +low]``, or
+``[-participant, +speaker]``.
 
-With this package, such feature systems can be created with a simple
-contingency **table definition** (feature matrix) and saved under a
-section in a **configuration file**. Each feature system can then be
-**loaded** and provides its own ``FeatureSet`` subclass that implements
-all **comparisons and operations** between its feature sets according to
-the given definition (compatibility, entailment, intersection,
-unification, etc.).
+With this package, such feature systems can be created with a simple contingency
+**table definition** (feature matrix) and saved under a section in a
+**configuration file**. Each feature system can then be **loaded** and provides
+its own ``FeatureSet`` subclass that implements all **comparisons and
+operations** between its feature sets according to the given definition
+(compatibility, entailment, intersection, unification, etc.).
 
-Features creates the **complete lattice** structure between the possible
-feature sets of each feature system and lets you navigate and **visualize
-their relations** using the `Graphviz <http://www.graphviz.org>`_ graph
-layout library.
+Features creates the **complete lattice** structure between the possible feature
+sets of each feature system and lets you navigate and **visualize their
+relations** using the Graphviz_ graph layout library.
 
 
 Installation
@@ -35,10 +33,8 @@ Installation
 
     $ pip install features
 
-This will also install the `concepts <http://pypi.python.org/pypi/concepts>`_
-package from PyPI providing the `Formal Concept Analysis
-<http://en.wikipedia.org/wiki/Formal_concept_analysis>`_ (FCA) algorithms
-which are the base of this package.
+This will also install the concepts_ package from PyPI providing the `Formal
+Concept Analysis`_ (FCA) algorithms which are the base of this package.
 
 Features is essentially a convenience wrapper around the FCA-functionality of
 concepts.
@@ -59,9 +55,8 @@ To load a feature system, pass its **name** to ``features.FeatureSystem``:
     >>> fs
     <FeatureSystem('plural') of 6 atoms 22 featuresets>
 
-The built-in feature systems are found in the ``config.ini`` file in the
-package directory (usually ``Lib/site-packages/concepts`` in your Python
-directory).
+The built-in feature systems are found in the ``config.ini`` file in the package
+directory (usually ``Lib/site-packages/concepts`` in your Python directory).
 
 The definition of a feature system is stored in its ``context`` object:
 
@@ -77,8 +72,8 @@ The definition of a feature system is stored in its ``context`` object:
         3s|  |X |  |X |X |  |X  |   |   |X  |
         3p|  |X |  |X |X |  |   |X  |X  |   |
 
-Check the documentation of `concepts`_ for further information on its
-full functionality.
+Check the documentation of concepts_ for further information on its full
+functionality.
 
 .. code:: python
 
@@ -93,7 +88,7 @@ Feature sets
 ------------
 
 All feature system contain a **contradicting feature set** with all features
-refering to no object:
+referring to no object:
 
 .. code:: python
 
@@ -114,8 +109,8 @@ referring to all objects:
     >>> fs.supremum.concept.extent
     ('1s', '1p', '2s', '2p', '3s', '3p')
 
-Use the feature system to iterate over **all defined feature sets** in
-shortlex extent order:
+Use the feature system to iterate over **all defined feature sets** in shortlex
+extent order:
 
 .. code:: python
 
@@ -149,15 +144,16 @@ shortlex extent order:
 Retrieval
 ---------
 
-You can call the feature system with an iterable of features to retrieve one of its
-feature sets:
+You can call the feature system with an iterable of features to retrieve one of
+its feature sets:
 
 .. code:: python
 
     >>> fs(['+1', '+sg'])
     FeatureSet('+1 +sg')
 
-Usually, it is more convenient to let the system extract the features from a string:
+Usually, it is more convenient to let the system extract the features from a
+string:
 
 .. code:: python
 	
@@ -239,6 +235,8 @@ Intersection (*join*, closest feature set that subsumes the given ones):
     >>> fs('1sg') % fs('2sg')
     FeatureSet('-3 +sg')
 
+Intersect an iterable of feature sets:
+
 .. code:: python
 
     >>> fs.join([fs('+1'), fs('+2'), fs('1sg')])
@@ -250,6 +248,8 @@ Unification (*meet*, closest feature set that implies the given ones):
 
     >>> fs('-1') ^ fs('-2')
     FeatureSet('+3')
+
+Unify an iterable of feature sets:
 
 .. code:: python
 
@@ -303,17 +303,20 @@ Create a graph of the feature system lattice.
     ...
 
 .. image:: https://raw.github.com/xflr6/features/master/docs/fs-plural.png
+    :width: 720px
+    :align: center
 
-Check the documentation of `this package <http://pypi.python.org/pypi/graphviz>`_
-for details on the resulting object.
+Check the documentation of `this package`__ for details on the resulting object.
+
+.. __: http://pypi.python.org/pypi/graphviz
 
 
 Definition
 ----------
 
-Create an INI file with your configurations, for example:
+Create an INI-file with your configurations, for example:
 
-::
+.. code:: ini
 
     # phonemes.ini - define distinctive features
 
@@ -342,8 +345,8 @@ Add your config file, overriding existing sections with the same name:
     >>> features.Config.add('docs/phonemes.ini')
 
 If the filename is relative, it is resolved relative to the file where the
-``add`` method was called. Check the documentation of the `fileconfig
-<http://pypi.python.org/pypi/fileconfig>`_ package for details.
+``add`` method was called. Check the documentation of the fileconfig_ package
+for details.
 
 Load your feature system:
 
@@ -387,11 +390,33 @@ Further reading
 - http://www.upriss.org.uk/fca/
 
 
+See also
+--------
+
+- concepts_ |--| Formal Concept Analysis with Python
+- fileconfig_ |--| Config file sections as objects
+- graphviz__ |--| Simple Python interface for Graphviz
+
+.. __: http://pypi.python.org/pypi/graphviz
+
+
 License
 -------
 
-Features is distributed under the `MIT license
-<http://opensource.org/licenses/MIT>`_.
+Features is distributed under the `MIT license`_.
+
+
+.. _Graphviz: http://www.graphviz.org
+.. _Formal Concept Analysis: http://en.wikipedia.org/wiki/Formal_concept_analysis
+
+.. _concepts: http://pypi.python.org/pypi/concepts
+.. _fileconfig: http://pypi.python.org/pypi/fileconfig
+
+.. _MIT license: http://opensource.org/licenses/MIT
+
+
+.. |--| unicode:: U+2013
+
 
 .. |PyPI version| image:: https://pypip.in/v/features/badge.png
     :target: https://pypi.python.org/pypi/features
