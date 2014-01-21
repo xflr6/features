@@ -13,9 +13,10 @@ class Config(fileconfig.Stacked):
     filename = 'config.ini'
     _encoding = 'utf_8_sig'
 
-    def __init__(self, key, context, aliases=None, inherits=None, str_maximal=False, description=''):
+    def __init__(self, key, context, format='table', aliases=None, inherits=None, str_maximal=False, description=''):
         self.key = key
         self.context = context.strip()
+        self.format = format
         self.aliases = [] if aliases is None else aliases
         self.inherits = inherits
         self.str_maximal = (False if not str_maximal

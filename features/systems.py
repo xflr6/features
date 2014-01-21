@@ -2,7 +2,7 @@
 
 """Lattice of possible feature sets."""
 
-from itertools import izip, combinations
+from itertools import izip, imap, combinations
 
 import concepts
 
@@ -25,7 +25,7 @@ class FeatureSystem(object):
     def __init__(self, config):
         self._config = config
 
-        context = concepts.Context.from_string(config.context)
+        context = concepts.Context.fromstring(config.context)
 
         if (len(context.objects) != len(context.lattice.atoms) or
             any((o,) != a.extent for o, a in
@@ -77,18 +77,20 @@ class FeatureSystem(object):
         return self._featuresets[meet.index]
 
     def upset_union(self, featuresets):
-        union = 0
+        """Yield all featuresets that subsume any of the given ones."""
+        union = self.lattice._Concepts.infimum
         for f in featuresets:
             union |= f.concept._upset
         indexes = self.FeatureSet._indexes(union)
-        return map(self._featuresets.__getitem__, indexes)
+        return imap(self._featuresets.__getitem__, indexes)
 
     def downset_union(self, featuresets):
-        union = 0
+        """Yield all featuresets that imply any of the given ones."""
+        union = self.lattice._Concepts.infimum
         for f in featuresets:
             union |= f.concept._downset
         indexes = self.FeatureSet._indexes(union)
-        return map(self._featuresets.__getitem__, indexes)
+        return imap(self._featuresets.__getitem__, indexes)
 
     def __call__(self, string=''):
         """Idempotently return featureset from parsed feature string."""
