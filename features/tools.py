@@ -3,7 +3,7 @@
 from itertools import izip
 import string
 
-__all__ = ['uniqued', 'generic_translate']
+__all__ = ['uniqued', 'butlast', 'generic_translate']
 
 
 def uniqued(iterable):
@@ -15,6 +15,25 @@ def uniqued(iterable):
     seen = set()
     add = seen.add
     return [i for i in iterable if i not in seen and not add(i)]
+
+
+def butlast(iterable):
+    """Yield all items from iterable except the last one.
+
+    >>> list(butlast(['spam', 'eggs', 'ham']))
+    ['spam', 'eggs']
+
+    >>> list(butlast(['spam']))
+    []
+
+    >>> list(butlast([]))
+    []
+    """
+    iterable = iter(iterable)
+    first = next(iterable)
+    for second in iterable:
+        yield first
+        first = second
 
 
 def generic_translate(frm=None, to=None, delete=''):

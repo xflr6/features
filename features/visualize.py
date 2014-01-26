@@ -60,10 +60,13 @@ def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, re
     if not topdown:
         dot.edge_attr.update(dir='back')
 
+    sortkey = lambda f: f.index
+
     for f in fs._featuresets:
         name = node_name(f)
         dot.node(name, node_label(f), node_format(f))
-        dot.edges((name, node_name(n)) for n in node_neighbors(f))
+        dot.edges((name, node_name(n))
+            for n in sorted(node_neighbors(f), key=sortkey))
 
     if render or view:
         dot.render(view=view)

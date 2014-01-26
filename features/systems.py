@@ -44,10 +44,7 @@ class FeatureSystem(object):
         self.lattice = context.lattice
         self.parse = parsers.Parser(context.properties)
 
-        cls = type('FeatureSet', (self._base,), {'system': self,
-            '_indexes': staticmethod(self.lattice._Concepts._indexes.__func__),
-             '_nonsup': (self.lattice._Concepts.supremum
-                ^ self.lattice._Concepts._atoms[-1])})
+        cls = type('FeatureSet', (self._base,), {'system': self})
         if config.str_maximal:
             cls.__str__ = cls.__strmax__
 
@@ -78,18 +75,14 @@ class FeatureSystem(object):
 
     def upset_union(self, featuresets):
         """Yield all featuresets that subsume any of the given ones."""
-        union = self.lattice._Concepts.infimum
-        for f in featuresets:
-            union |= f.concept._upset
-        indexes = self.FeatureSet._indexes(union)
+        concepts = (f.concept for f in featuresets)
+        indexes = (c.index for c in self.lattice.upset_union(concepts))
         return imap(self._featuresets.__getitem__, indexes)
 
     def downset_union(self, featuresets):
         """Yield all featuresets that imply any of the given ones."""
-        union = self.lattice._Concepts.infimum
-        for f in featuresets:
-            union |= f.concept._downset
-        indexes = self.FeatureSet._indexes(union)
+        concepts = (f.concept for f in featuresets)
+        indexes = (c.index for c in self.lattice.downset_union(concepts))
         return imap(self._featuresets.__getitem__, indexes)
 
     def __call__(self, string=''):

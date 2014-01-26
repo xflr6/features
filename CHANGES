@@ -2,6 +2,16 @@ Features Changelog
 ==================
 
 
+Version 0.2
+-----------
+
+Update concepts dependency to 0.5 and improve separation of concerns.
+
+Changed upset and downset from properties to methods (backwards incompatible).
+
+Order downsets longlex instead of shortlex.
+
+
 Version 0.1.3
 -------------
 

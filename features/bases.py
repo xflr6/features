@@ -3,6 +3,8 @@
 from itertools import imap
 import copy_reg
 
+import tools
+
 __all__ = ['FeatureSet']
 
 
@@ -36,12 +38,10 @@ class FeatureSet(object):
 
     __metaclass__ = FeatureSetMeta
 
-    label = '[]'
-
     def __init__(self, concept):
         self.concept = concept
         self.index = concept.index
-        self.string = ' '.join(concept.minimal)
+        self.string = ' '.join(concept.minimal())
         self.string_maximal = ' '.join(concept.intent)
 
     def __nonzero__(self):
@@ -59,7 +59,8 @@ class FeatureSet(object):
         >>> fs('1').upper_neighbors
         [FeatureSet('-3'), FeatureSet('-2')]
         """
-        return map(self._sibling, self.concept._upper_neighbors._indexes())
+        indexes = (c.index for c in self.concept.upper_neighbors)
+        return map(self._sibling, indexes)
 
     @property
     def lower_neighbors(self):
@@ -68,25 +69,8 @@ class FeatureSet(object):
         >>> fs('1').lower_neighbors
         [FeatureSet('+1 +sg'), FeatureSet('+1 +pl')]
         """
-        return map(self._sibling, self.concept._lower_neighbors._indexes())
-
-    @property
-    def upset(self):
-        """Implied neighbors.
-
-        >>> fs('1').upset
-        [FeatureSet('+1'), FeatureSet('-3'), FeatureSet('-2'), FeatureSet('')]
-        """
-        return map(self._sibling, self.concept._upset._indexes())
-
-    @property
-    def downset(self):
-        """Subsumed neighbors.
-
-        >>> fs('1').downset
-        [FeatureSet('+1 -1 +2 -2 +3 -3 +sg +pl -sg -pl'), FeatureSet('+1 +sg'), FeatureSet('+1 +pl'), FeatureSet('+1')]
-        """
-        return map(self._sibling, self.concept._downset._indexes())
+        indexes = (c.index for c in self.concept.lower_neighbors)
+        return map(self._sibling, indexes)
 
     @property
     def atoms(self):
@@ -95,7 +79,30 @@ class FeatureSet(object):
         >>> fs('1').atoms
         [FeatureSet('+1 +sg'), FeatureSet('+1 +pl')]
         """
-        return map(self._sibling, self.concept._atoms._indexes())
+        indexes = (c.index for c in self.concept.atoms)
+        return map(self._sibling, indexes)
+
+    def upset(self):
+        """Implied neighbors.
+
+        >>> list(fs('1').upset())  # doctest: +NORMALIZE_WHITESPACE
+        [FeatureSet('+1'),
+         FeatureSet('-3'), FeatureSet('-2'),
+         FeatureSet('')]
+        """
+        indexes = (c.index for c in self.concept.upset())
+        return map(self._sibling, indexes)
+
+    def downset(self):
+        """Subsumed neighbors.
+
+        >>> list(fs('1').downset())  # doctest: +NORMALIZE_WHITESPACE
+        [FeatureSet('+1'),
+         FeatureSet('+1 +sg'), FeatureSet('+1 +pl'),
+         FeatureSet('+1 -1 +2 -2 +3 -3 +sg +pl -sg -pl')]
+        """
+        indexes = (c.index for c in self.concept.downset())
+        return map(self._sibling, indexes)
 
     def subsumes(self, other):
         """Submsumption.
@@ -210,22 +217,25 @@ class FeatureSet(object):
 
     # internal interface used by cases
     def _upper_neighbors_nonsup(self):
-        upper = self.concept._upper_neighbors & self._nonsup
-        return map(self._sibling, self._indexes(upper))
+        indexes = (c.index for c in self.concept.upper_neighbors if c.upper_neighbors)
+        return map(self._sibling, indexes)
 
     def _upper_neighbors_union_nonsup(self, other):
-        union = self.concept._upper_neighbors | other.concept._upper_neighbors
-        union &= self._nonsup
-        return imap(self._sibling, self._indexes(union))
+        if other.properly_subsumes(self):
+            return iter(self.upper_neighbors)
+        elif self.properly_subsumes(other):
+            return iter(other.upper_neighbors)
+        indexes = set(c.index for c in
+            self.concept.upper_neighbors + other.concept.upper_neighbors
+            if c.upper_neighbors)
+        return imap(self._sibling, indexes)
 
     def _upset_nonsup(self):
-        upset = self.concept._upset & self._nonsup
-        return imap(self._sibling, self._indexes(upset))
+        indexes = (c.index for c in tools.butlast(self.concept.upset()))
+        return imap(self._sibling, indexes)
 
     def _upset_union_nonsup(self, other):
-        union = self.concept._upset | other.concept._upset
-        union &= self._nonsup
-        return imap(self._sibling, self._indexes(union))
+        return tools.butlast(self.system.upset_union([self, other]))
 
 
 def _test(verbose=False):

@@ -7,7 +7,7 @@ except ImportError:
 
 setup(
     name='features',
-    version='0.1.3',
+    version='0.2',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Feature set algebra for linguistics',
@@ -19,8 +19,8 @@ setup(
         'features': ['config.ini'],
     },
     install_requires=[
+        'concepts==0.5',
         'fileconfig==0.4',
-        'concepts==0.4',
         'graphviz==0.2',
     ],
     platforms='any',
@@ -35,6 +35,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
         'Topic :: Scientific/Engineering :: Information Analysis',
+        'Topic :: Scientific/Engineering :: Visualization',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
 )

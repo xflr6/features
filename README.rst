@@ -273,12 +273,13 @@ Complete set of implied/subsumed neighbors.
 
 .. code:: python
 
-    >>> fs('+1').upset
+    >>> list(fs('+1').upset())
     [FeatureSet('+1'), FeatureSet('-3'), FeatureSet('-2'), FeatureSet('')]
 
-    >>> fs('+1').downset  # doctest: +NORMALIZE_WHITESPACE
-    [FeatureSet('+1 -1 +2 -2 +3 -3 +sg +pl -sg -pl'),
-     FeatureSet('+1 +sg'), FeatureSet('+1 +pl'), FeatureSet('+1')]
+    >>> list(fs('+1').downset())  # doctest: +NORMALIZE_WHITESPACE
+    [FeatureSet('+1'),
+     FeatureSet('+1 +sg'), FeatureSet('+1 +pl'),
+     FeatureSet('+1 -1 +2 -2 +3 -3 +sg +pl -sg -pl')]
 
 
 Visualization
