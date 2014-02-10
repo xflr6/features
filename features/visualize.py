@@ -7,17 +7,17 @@ __all__ = ['featuresystem', 'render_all']
 DIRECTORY = 'graphs'
 
 MAXIMAL_LABEL = False
+
 TOPDOWN = False
 
+NAME_GETTERS = [lambda f: 'f%d' % f.index, lambda f: repr(f)]
 
-name_getters = [lambda f: 'f%d' % f.index, lambda f: repr(f)]
-
-label_getters = [
+LABEL_GETTERS = [
     lambda f: f.string.replace('-', '&minus;'),
     lambda f: f. string_maximal.replace('-', '&minus;')
 ]
 
-neighbors_getters = [lambda f: f.lower_neighbors, lambda f: f.upper_neighbors]
+NEIGHBORS_GETTERS = [lambda f: f.lower_neighbors, lambda f: f.upper_neighbors]
 
 
 def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, render, view):
@@ -51,11 +51,11 @@ def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, re
         node_format = lambda f: None
 
 
-    node_name = name_getters[0]
+    node_name = NAME_GETTERS[0]
 
-    node_label = label_getters[bool(maximal_label)]
+    node_label = LABEL_GETTERS[bool(maximal_label)]
 
-    node_neighbors = neighbors_getters[bool(topdown)]
+    node_neighbors = NEIGHBORS_GETTERS[bool(topdown)]
 
     if not topdown:
         dot.edge_attr.update(dir='back')

@@ -60,11 +60,3 @@ class Parser(object):
                 'known features: %r' % (string, self.features))
 
         return features
-
-
-def _test(verbose=False):
-    import doctest
-    doctest.testmod(verbose=verbose)
-
-if __name__ == '__main__':
-    _test()

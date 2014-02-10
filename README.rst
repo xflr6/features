@@ -217,6 +217,9 @@ Compatibility tests:
     >>> fs('-1').subcontrary_with(fs('-2'))
     True
 
+    >>> fs('+1').orthogonal_to(fs('+sg'))
+    True
+
 Set inclusion (*subsumption*):
 
 .. code:: python
@@ -228,7 +231,8 @@ Set inclusion (*subsumption*):
 Operations
 ----------
 
-Intersection (*join*, closest feature set that subsumes the given ones):
+Intersection (*join*, generalization, closest feature set that subsumes the
+given ones):
 
 .. code:: python
 
@@ -242,7 +246,7 @@ Intersect an iterable of feature sets:
     >>> fs.join([fs('+1'), fs('+2'), fs('1sg')])
     FeatureSet('-3')
 
-Unification (*meet*, closest feature set that implies the given ones):
+Union (*meet*, unification, closest feature set that implies the given ones):
 
 .. code:: python
 

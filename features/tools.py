@@ -66,11 +66,3 @@ def generic_translate(frm=None, to=None, delete=''):
         return basestr.translate(*args)
 
     return translate
-
-
-def _test(verbose=False):
-    import doctest
-    doctest.testmod(verbose=verbose)
-
-if __name__ == '__main__':
-    _test()
