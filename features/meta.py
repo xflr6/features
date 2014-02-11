@@ -11,6 +11,7 @@ class Config(fileconfig.Stacked):
     """Define possible feature combinations and their minimal specification."""
 
     filename = 'config.ini'
+
     _encoding = 'utf_8_sig'
 
     def __init__(self, key, context, format='table', aliases=None, inherits=None, str_maximal=False, description=''):
@@ -39,7 +40,7 @@ class FeatureSystemMeta(type):
         if isinstance(config, basestring):
             config = Config(config)
 
-        if config.key in self.__map:
+        if config.key is not None and config.key in self.__map:
             inst = self.__map[config.key]
         else:
             inst = super(FeatureSystemMeta, self).__call__(config)

@@ -23,6 +23,8 @@ class FeatureSetMeta(type):
     def __reduce__(self):
         if self.system is None:
             return self.__name__
+        elif self.system.key is None:
+            return self.system.__class__, (self.system._config, -1)
         return self.system.__class__, (self.system.key, -1)
 
 
@@ -130,6 +132,8 @@ class FeatureSet(object):
         return '%s(%r)' % (self.__class__.__name__, self.string)
 
     def __reduce__(self):
+        if self.system.key is None:
+            return self.system.__class__, (self.system._config, self.string)
         return self.system.__class__, (self.system.key, self.string)
 
     def __str__(self):

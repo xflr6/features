@@ -74,7 +74,7 @@ class FeatureSystem(object):
     def __init__(self, config):
         self._config = config
 
-        context = concepts.Context.fromstring(config.context)
+        context = concepts.Context.fromstring(config.context, frmat=config.format)
 
         if (len(context.objects) != len(context.lattice.atoms) or
             any((o,) != a.extent for o, a in
@@ -87,7 +87,7 @@ class FeatureSystem(object):
             raise ValueError('%r %r: some feature names %r are in '
                 'substring relation' % (self.__class__, config.key, names))
 
-        self.key = config.key or '%#x' % id(config)
+        self.key = config.key
         self.description = config.description
         self.context = context
         self.lattice = context.lattice
@@ -142,10 +142,15 @@ class FeatureSystem(object):
                 for f in self._featuresets[1:]))
 
     def __repr__(self):
+        if self.key is None:
+            return '<%s object of %d atoms %d featuresets at %#x>' % (self.__class__.__name__,
+                len(self.atoms), len(self._featuresets), id(self))
         return '<%s(%r) of %d atoms %d featuresets>' % (self.__class__.__name__,
             self.key, len(self.atoms), len(self._featuresets))
 
     def __reduce__(self):
+        if self.key is None:
+            return self.__class__, (self._config,)
         return self.__class__, (self.key,)
 
     @property

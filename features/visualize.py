@@ -27,11 +27,13 @@ def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, re
     if topdown is None:
         topdown = TOPDOWN
 
+    name = '%#x' % id(fs) if fs.key is None else fs.key
+
     if filename is None:
-        filename = 'fs-%s%s.gv' % (fs.key, '-max' if maximal_label else '')
+        filename = 'fs-%s%s.gv' % (name, '-max' if maximal_label else '')
 
     dot = graphviz.Digraph(
-        name=fs.key,
+        name=name,
         comment=repr(fs),
         filename=filename,
         directory=directory,
