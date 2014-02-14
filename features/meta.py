@@ -14,15 +14,15 @@ class Config(fileconfig.Stacked):
 
     _encoding = 'utf_8_sig'
 
-    def __init__(self, key, context, format='table', aliases=None, inherits=None, str_maximal=False, description=''):
+    def __init__(self, key, context, format='table', aliases=None, inherits=None, str_maximal=False, description=None):
         self.key = key
         self.context = context.strip()
         self.format = format
         self.aliases = [] if aliases is None else aliases
         self.inherits = inherits
-        self.str_maximal = (False if not str_maximal
+        self.str_maximal = (False if not str_maximal else True if str_maximal is True
             else str_maximal.lower() in ('1', 'yes', 'true', 'on'))
-        self.description = description.strip()
+        self.description = '' if description is None else description.strip()
 
     def __str__(self):
         return '%r\n%s' % (self, self.context)

@@ -93,7 +93,8 @@ class FeatureSystem(object):
         self.lattice = context.lattice
         self.parse = parsers.Parser(context.properties)
 
-        cls = type('FeatureSet', (self.FeatureSet,), {'system': self})
+        base = self.FeatureSet
+        cls = type(base.__name__, (base,), {'system': self})
         if config.str_maximal:
             cls.__str__ = cls.__strmax__
 

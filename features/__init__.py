@@ -3,7 +3,7 @@
 """Feature set algebra for linguistics."""
 
 __title__ = 'features'
-__version__ = '0.4'
+__version__ = '0.4.1'
 __author__ = 'Sebastian Bank <sebastian.bank@uni-leipzig.de>'
 __license__ = 'MIT, see LICENSE'
 __copyright__ = 'Copyright (c) 2014 Sebastian Bank'
@@ -19,7 +19,7 @@ def add_config(filename):
     Config.add(filename, caller_steps=2)
 
 
-def make_features(context, frmat='table'):
+def make_features(context, frmat='table', str_maximal=False):
     """Return a new feature system from context string in the given format.
 
     >>> fs = make_features('''
@@ -33,6 +33,5 @@ def make_features(context, frmat='table'):
     >>> fs  # doctest: +ELLIPSIS
     <FeatureSystem object of 4 atoms 10 featuresets at 0x...>
     """
-    config = Config.create(context=context, format=frmat)
+    config = Config.create(context=context, format=frmat, str_maximal=str_maximal)
     return FeatureSystem(config)
- 

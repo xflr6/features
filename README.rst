@@ -14,12 +14,13 @@ a way such that only **some of their combinations are valid**, while others are
 impossible (i.e. refer to no object) |--| for example ``[+high, +low]``, or
 ``[-participant, +speaker]``.
 
-With this package, such feature systems can be created with a simple contingency
-**table definition** (feature matrix) and saved under a section in a
-**configuration file**. Each feature system can then be **loaded** and provides
-its own ``FeatureSet`` subclass that implements all **comparisons and
-operations** between its feature sets according to the given definition
-(compatibility, entailment, intersection, unification, etc.).
+With this package, such feature systems can be defined with a simple contingency
+**table definition** (feature matrix) and stored under a section name in a
+simple clear-text **configuration file**. Each feature system can then be
+**loaded** by its name and provides its own ``FeatureSet`` subclass that
+implements all **comparisons and operations** between its feature sets according
+to the given definition (compatibility, entailment, intersection, unification,
+etc.).
 
 Features creates the **complete lattice** structure between the possible feature
 sets of each feature system and lets you navigate and **visualize their
@@ -34,7 +35,7 @@ Installation
     $ pip install features
 
 This will also install the concepts_ package from PyPI providing the `Formal
-Concept Analysis`_ (FCA) algorithms which are the base of this package.
+Concept Analysis`_ (FCA) algorithms on which this package is based.
 
 Features is essentially a convenience wrapper around the FCA-functionality of
 concepts.
@@ -43,8 +44,9 @@ concepts.
 Systems
 -------
 
-Features includes some **predefined feature systems** you can try immediately.
-To load a feature system, pass its **name** to ``features.FeatureSystem``:
+Features includes some **predefined feature systems** that you can try out
+immediately. To load a feature system, pass its **name** to
+``features.FeatureSystem``:
 
 .. code:: python
 
@@ -55,8 +57,9 @@ To load a feature system, pass its **name** to ``features.FeatureSystem``:
     >>> fs
     <FeatureSystem('plural') of 6 atoms 22 featuresets>
 
-The built-in feature systems are found in the ``config.ini`` file in the package
-directory (usually ``Lib/site-packages/concepts`` in your Python directory).
+The built-in feature systems are defined in the ``config.ini`` file in the
+package directory (usually, this will be ``Lib/site-packages/concepts`` in your
+Python directory).
 
 The definition of a feature system is stored in its ``context`` object:
 
@@ -72,23 +75,38 @@ The definition of a feature system is stored in its ``context`` object:
         3s|  |X |  |X |X |  |X  |   |   |X  |
         3p|  |X |  |X |X |  |   |X  |X  |   |
 
-Check the documentation of concepts_ for further information on its full
-functionality.
-
-.. code:: python
-
     >>> fs.context.objects
     ('1s', '1p', '2s', '2p', '3s', '3p')
 
     >>> fs.context.properties
     ('+1', '-1', '+2', '-2', '+3', '-3', '+sg', '+pl', '-sg', '-pl')
 
+    >>> fs.context.bools  # doctest: +NORMALIZE_WHITESPACE
+    [(True, False, False, True, False, True, True, False, False, True),
+     (True, False, False, True, False, True, False, True, True, False),
+     (False, True, True, False, False, True, True, False, False, True),
+     (False, True, True, False, False, True, False, True, True, False),
+     (False, True, False, True, True, False, True, False, False, True),
+     (False, True, False, True, True, False, False, True, True, False)]
+
+It basically provies a mapping from objects to features and vice versa. Check
+the documentation of concepts_ for further information on its full
+functionality.
+
+.. code:: python
+
+    >>> fs.context.intension(['1s', '1p'])  # common features?
+    ('+1', '-2', '-3')
+
+    >>> fs.context.extension(['-3', '+sg'])  # common objects?
+    ('1s', '2s')
+
 
 Feature sets
 ------------
 
 All feature system contain a **contradicting feature set** with all features
-referring to no object:
+that refers to no object:
 
 .. code:: python
 
@@ -139,6 +157,20 @@ extent order:
     [-1] ('2s', '2p', '3s', '3p')
     [] ('1s', '1p', '2s', '2p', '3s', '3p')
 
+The string representations will show the smallest possible notation for each
+feature set by default (shortlex minimum). The full representation is also
+available:
+
+.. code:: python
+
+    >>> fs('1sg').string
+    '+1 +sg'
+
+    >>> fs('1sg').string_maximal
+    '+1 -2 -3 +sg -pl'
+
+To use the maximal representation for ``__str__``, put ``str_maximal = true``
+into the configuration (see below).
 
 
 Retrieval
@@ -236,7 +268,7 @@ given ones):
 
 .. code:: python
 
-    >>> fs('1sg') % fs('2sg')
+    >>> fs('1sg') % fs('2sg')  # common features, or?
     FeatureSet('-3 +sg')
 
 Intersect an iterable of feature sets:
@@ -250,7 +282,7 @@ Union (*meet*, unification, closest feature set that implies the given ones):
 
 .. code:: python
 
-    >>> fs('-1') ^ fs('-2')
+    >>> fs('-1') ^ fs('-2')  # commbined features, and?
     FeatureSet('+3')
 
 Unify an iterable of feature sets:
@@ -319,7 +351,40 @@ Check the documentation of `this package`__ for details on the resulting object.
 Definition
 ----------
 
-Create an INI-file with your configurations, for example:
+If you do not need to save your definition, you can directly create a system
+from an ASCII-art style table:
+
+.. code:: python
+
+    >>> fs = features.make_features('''
+    ...      |+male|-male|+adult|-adult|
+    ... man  |  X  |     |   X  |      |
+    ... woman|     |  X  |   X  |      |
+    ... boy  |  X  |     |      |   X  |
+    ... girl |     |  X  |      |   X  |
+    ... ''', str_maximal=False)
+
+    >>> fs  # doctest: +ELLIPSIS
+    <FeatureSystem object of 4 atoms 10 featuresets at 0x...>
+
+    >>> for f in fs:
+    ...     print f, f.concept.extent
+    [+male -male +adult -adult] ()
+    [+male +adult] ('man',)
+    [-male +adult] ('woman',)
+    [+male -adult] ('boy',)
+    [-male -adult] ('girl',)
+    [+adult] ('man', 'woman')
+    [+male] ('man', 'boy')
+    [-male] ('woman', 'girl')
+    [-adult] ('boy', 'girl')
+    [] ('man', 'woman', 'boy', 'girl')
+
+Note that the strings representing the objects and features need to be disjoint
+and features cannot be in substring relation.
+
+To load feature systems by name, create an INI-file with your configurations,
+for example:
 
 .. code:: ini
 
@@ -347,7 +412,7 @@ Add your config file, overriding existing sections with the same name:
 
 .. code:: python
 
-    >>> features.Config.add('docs/phonemes.ini')
+    >>> features.add_config('docs/phonemes.ini')
 
 If the filename is relative, it is resolved relative to the file where the
 ``add`` method was called. Check the documentation of the fileconfig_ package
@@ -387,6 +452,31 @@ Logical relations between feature pairs:
      <u'-high' Subcontrary u'-low'>,
      <u'+high' Orthogonal u'+back'>, <u'+high' Orthogonal u'-back'>,
      ...
+
+
+Advanced usage
+--------------
+
+To customize the behavior of the feature sets, override the ``FeatureSet``
+attribute of ``FeatureSystem`` with your subclass:
+
+.. code:: python
+
+    >>> class MyFeatures(features.FeatureSystem.FeatureSet):
+    ...     @property
+    ...     def features(self):
+    ...         return list(self.concept.intent)
+
+    >>> class MyFeatureSystem(features.FeatureSystem):
+    ...     FeatureSet = MyFeatures
+
+    >>> myfs = MyFeatureSystem('small')
+
+    >>> myfs('1 -pl')
+    MyFeatures('+1 -pl')
+
+    >>> myfs('1 -pl').features
+    ['+1', '-2', '-pl']
 
 
 Further reading

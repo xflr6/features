@@ -1,3 +1,3 @@
-concepts==0.6
+concepts==0.6.1
 fileconfig==0.4
 graphviz==0.2
