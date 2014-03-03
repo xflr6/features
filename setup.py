@@ -7,7 +7,7 @@ except ImportError:
 
 setup(
     name='features',
-    version='0.4.1',
+    version='0.4.2',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Feature set algebra for linguistics',
@@ -19,9 +19,9 @@ setup(
         'features': ['config.ini'],
     },
     install_requires=[
-        'concepts==0.6.1',
-        'fileconfig==0.4',
-        'graphviz==0.2',
+        'concepts>=0.6, <0.7',
+        'fileconfig>=0.4, <0.5',
+        'graphviz>=0.2, <0.3',
     ],
     platforms='any',
     long_description=open('README.rst').read(),
