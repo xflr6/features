@@ -2,50 +2,58 @@
 
 """Lattice of possible feature sets."""
 
-from itertools import izip, imap, combinations
+from itertools import combinations
+
+from ._compat import string_types, zip, map, with_metaclass
 
 import concepts
 
-import meta
-import bases
-import parsers
-import tools
-import visualize
+from . import meta, bases, parsers, tools, visualize
 
 __all__ = ['FeatureSystem']
 
 
-class FeatureSystem(object):
+class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
     """Feature set lattice defined by config instance.
 
     >>> fs = FeatureSystem('plural')
 
-    >>> print fs  
+    >>> FeatureSystem(fs) is fs
+    True
+
+    >>> print(fs)  # doctest: +NORMALIZE_WHITESPACE
     <FeatureSystem('plural') of 6 atoms 22 featuresets>
     '1st, 2nd, and 3rd person & singular and plural number'
-        [+1 -1 +2 -2 +3 -3 +sg +pl -sg -pl] ->  
-                 -> [+1 +sg] [+1 +pl] [+2 +sg] [+2 +pl] [+3 +sg] [+3 +pl] 
-        [+1 +sg] -> [+1] [-3 +sg] [-2 +sg] 
-        [+1 +pl] -> [+1] [-3 +pl] [-2 +pl] 
-        [+2 +sg] -> [-3 +sg] [+2] [-1 +sg] 
-        [+2 +pl] -> [-3 +pl] [+2] [-1 +pl] 
-        [+3 +sg] -> [-2 +sg] [-1 +sg] [+3] 
-        [+3 +pl] -> [-2 +pl] [-1 +pl] [+3] 
-        [+1]     -> [-3] [-2] 
-        [-3 +sg] -> [+sg] [-3] 
-        [-2 +sg] -> [+sg] [-2] 
-        [-3 +pl] -> [+pl] [-3] 
-        [-2 +pl] -> [+pl] [-2] 
-        [+2]     -> [-3] [-1] 
-        [-1 +sg] -> [+sg] [-1] 
-        [-1 +pl] -> [+pl] [-1] 
-        [+3]     -> [-2] [-1] 
-        [+sg]    -> [] 
-        [+pl]    -> [] 
-        [-3]     -> [] 
-        [-2]     -> [] 
-        [-1]     -> [] 
-        []       ->  
+        [+1 -1 +2 -2 +3 -3 +sg +pl -sg -pl] ->
+                 -> [+1 +sg] [+1 +pl] [+2 +sg] [+2 +pl] [+3 +sg] [+3 +pl]
+        [+1 +sg] -> [+1] [-3 +sg] [-2 +sg]
+        [+1 +pl] -> [+1] [-3 +pl] [-2 +pl]
+        [+2 +sg] -> [-3 +sg] [+2] [-1 +sg]
+        [+2 +pl] -> [-3 +pl] [+2] [-1 +pl]
+        [+3 +sg] -> [-2 +sg] [-1 +sg] [+3]
+        [+3 +pl] -> [-2 +pl] [-1 +pl] [+3]
+        [+1]     -> [-3] [-2]
+        [-3 +sg] -> [+sg] [-3]
+        [-2 +sg] -> [+sg] [-2]
+        [-3 +pl] -> [+pl] [-3]
+        [-2 +pl] -> [+pl] [-2]
+        [+2]     -> [-3] [-1]
+        [-1 +sg] -> [+sg] [-1]
+        [-1 +pl] -> [+pl] [-1]
+        [+3]     -> [-2] [-1]
+        [+sg]    -> []
+        [+pl]    -> []
+        [-3]     -> []
+        [-2]     -> []
+        [-1]     -> []
+        []       ->
+
+
+    >>> fs.FeatureSet
+    <class 'FeatureSet' of <FeatureSystem('plural') of 6 atoms 22 featuresets>>
+
+    >>> fs.FeatureSet.__base__
+    <class 'features.bases.FeatureSet'>
 
 
     >>> fs.infimum
@@ -54,10 +62,24 @@ class FeatureSystem(object):
     >>> fs.supremum
     FeatureSet('')
 
+    >>> fs[0] is fs.infimum and fs[-1] is fs.supremum
+    True
+
+    >>> len(fs)
+    22
+
+    >>> fs('+1') in fs
+    True
+
     >>> fs.atoms  # doctest: +NORMALIZE_WHITESPACE
     [FeatureSet('+1 +sg'), FeatureSet('+1 +pl'),
      FeatureSet('+2 +sg'), FeatureSet('+2 +pl'),
      FeatureSet('+3 +sg'), FeatureSet('+3 +pl')]
+
+    >>> fs('+1 -1')  # doctest: +ELLIPSIS
+    Traceback (most recent call last):
+        ...
+    ValueError: '+1 -1' (['+1', '-1']) is not a valid feature set in ...
 
 
     >>> fs.join([fs('1sg'), fs('1pl'), fs('3sg')])
@@ -66,8 +88,6 @@ class FeatureSystem(object):
     >>> fs.meet([fs('-1'), fs('-2'), fs('-pl')])
     FeatureSet('+3 +sg')
     """
-
-    __metaclass__ = meta.FeatureSystemMeta
 
     FeatureSet = bases.FeatureSet
 
@@ -78,7 +98,7 @@ class FeatureSystem(object):
 
         if (len(context.objects) != len(context.lattice.atoms) or
             any((o,) != a.extent for o, a in
-                izip(context.objects, context.lattice.atoms))):
+                zip(context.objects, context.lattice.atoms))):
             raise ValueError('Context does not allow to refer '
                 'to each individual object: %r' % context)
 
@@ -99,7 +119,7 @@ class FeatureSystem(object):
             cls.__str__ = cls.__strmax__
 
         create = super(cls.__class__, cls).__call__
-        self._featuresets = featuresets = map(create, self.lattice)
+        self._featuresets = featuresets = list(map(create, self.lattice))
         cls._sibling = featuresets.__getitem__
 
         self.FeatureSet = cls
@@ -108,7 +128,7 @@ class FeatureSystem(object):
 
     def __call__(self, string=''):
         """Idempotently return featureset from parsed feature string."""
-        if isinstance(string, basestring):
+        if isinstance(string, string_types):
             features = self.parse(string)
         elif isinstance(string, self.FeatureSet):
             return string
@@ -136,7 +156,7 @@ class FeatureSystem(object):
 
     def __str__(self):
         description = '\n%r' % self.description if self.description else ''
-        tmpl = '    %%-%ds -> %%s ' % max(len(str(f))for f in self._featuresets[1:])
+        tmpl = '    %%-%ds -> %%s' % max(len(str(f))for f in self._featuresets[1:])
         return '%r%s\n%s\n%s\n%s' % (self, description, tmpl % (self.infimum, ''),
             tmpl % ('', ' '.join(str(c) for c in self.infimum.upper_neighbors)),
             '\n'.join(tmpl % (f, ' '.join(str(c) for c in f.upper_neighbors))
@@ -175,13 +195,13 @@ class FeatureSystem(object):
         """Yield all featuresets that subsume any of the given ones."""
         concepts = (f.concept for f in featuresets)
         indexes = (c.index for c in self.lattice.upset_union(concepts))
-        return imap(self._featuresets.__getitem__, indexes)
+        return map(self._featuresets.__getitem__, indexes)
 
     def downset_union(self, featuresets):
         """Yield all featuresets that imply any of the given ones."""
         concepts = (f.concept for f in featuresets)
         indexes = (c.index for c in self.lattice.downset_union(concepts))
-        return imap(self._featuresets.__getitem__, indexes)
+        return map(self._featuresets.__getitem__, indexes)
 
     def graphviz(self, highlight=None, maximal_label=None, topdown=None,
             filename=None, directory=None, render=False, view=False):

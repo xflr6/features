@@ -52,7 +52,6 @@ def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, re
     else:
         node_format = lambda f: None
 
-
     node_name = NAME_GETTERS[0]
 
     node_label = LABEL_GETTERS[bool(maximal_label)]
@@ -71,12 +70,17 @@ def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, re
             for n in sorted(node_neighbors(f), key=sortkey))
 
     if render or view:
-        dot.render(view=view)
+        dot.render(view=view)  # pragma: no cover
     return dot
 
 
-def render_all(maximal_label=MAXIMAL_LABEL, topdown=TOPDOWN, directory=DIRECTORY):
-    from systems import FeatureSystem
+def render_all(maximal_label=MAXIMAL_LABEL, topdown=TOPDOWN, directory=DIRECTORY, format=None):
+    from features.systems import FeatureSystem
+    from features.meta import Config
 
-    for fs in FeatureSystem:
-        featuresystem(fs, None, maximal_label, topdown, None, directory, True, False)
+    for conf in Config:
+        fs = FeatureSystem(conf)
+        dot = fs.graphviz(None, maximal_label, topdown, None, directory)
+        if format is not None:
+            dot.format = format
+        dot.render()

@@ -1,40 +1,17 @@
 # bases.py - relations, comparisons, operations
 
-from itertools import imap
-import copy_reg
+from ._compat import map, py2_bool_to_nonzero, with_metaclass
 
-import tools
+from . import meta, tools
 
 __all__ = ['FeatureSet']
 
 
-class FeatureSetMeta(type):
-
-    system = None
-
-    def __call__(self, string=''):
-        return self.system(string)
-
-    def __repr__(self):
-        if self.system is None:
-            return type.__repr__(self)
-        return '<class %r of %r>' % (self.__name__, self.system)
-
-    def __reduce__(self):
-        if self.system is None:
-            return self.__name__
-        elif self.system.key is None:
-            return self.system.__class__, (self.system._config, -1)
-        return self.system.__class__, (self.system.key, -1)
-
-
-copy_reg.pickle(FeatureSetMeta, FeatureSetMeta.__reduce__)
-
-
-class FeatureSet(object):
+@py2_bool_to_nonzero
+class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
     """Formal concept intent as ordered set of features.
 
-    >>> from systems import FeatureSystem
+    >>> from features.systems import FeatureSystem
 
     >>> fs = FeatureSystem('plural')
 
@@ -45,10 +22,13 @@ class FeatureSet(object):
     >>> fs('1sg')
     FeatureSet('+1 +sg')
 
-    >>> print fs('1sg')
+    >>> fs.FeatureSet('1sg')
+    FeatureSet('+1 +sg')
+
+    >>> print(fs('1sg'))
     [+1 +sg]
 
-    >>> print fs('1sg').__strmax__()
+    >>> print(fs('1sg').__strmax__())
     [+1 -2 -3 +sg -pl]
 
     >>> fs('1sg') and fs('1') and not fs('')
@@ -120,8 +100,6 @@ class FeatureSet(object):
     False
     """
 
-    __metaclass__ = FeatureSetMeta
-
     def __init__(self, concept):
         self.concept = concept
         self.index = concept.index
@@ -144,7 +122,7 @@ class FeatureSet(object):
         """Verbose string representation."""
         return '[%s]' % self.string_maximal
 
-    def __nonzero__(self):
+    def __bool__(self):
         """Return True iff the set has features."""
         return self is not self.system.supremum
 
@@ -152,29 +130,29 @@ class FeatureSet(object):
     def atoms(self):
         """Subsumed atoms."""
         indexes = (c.index for c in self.concept.atoms)
-        return map(self._sibling, indexes)
+        return list(map(self._sibling, indexes))
 
     @property
     def upper_neighbors(self):
         """Immediate implied neighbors."""
         indexes = (c.index for c in self.concept.upper_neighbors)
-        return map(self._sibling, indexes)
+        return list(map(self._sibling, indexes))
 
     @property
     def lower_neighbors(self):
         """Immediate subsumed neighbors."""
         indexes = (c.index for c in self.concept.lower_neighbors)
-        return map(self._sibling, indexes)
+        return list(map(self._sibling, indexes))
 
     def upset(self):
         """Implied neighbors."""
         indexes = (c.index for c in self.concept.upset())
-        return map(self._sibling, indexes)
+        return list(map(self._sibling, indexes))
 
     def downset(self):
         """Subsumed neighbors."""
         indexes = (c.index for c in self.concept.downset())
-        return map(self._sibling, indexes)
+        return list(map(self._sibling, indexes))
 
     def subsumes(self, other):
         """Submsumption."""
@@ -230,7 +208,7 @@ class FeatureSet(object):
     # internal interface used by cases
     def _upper_neighbors_nonsup(self):
         indexes = (c.index for c in self.concept.upper_neighbors if c.upper_neighbors)
-        return map(self._sibling, indexes)
+        return list(map(self._sibling, indexes))
 
     def _upper_neighbors_union_nonsup(self, other):
         if other.properly_subsumes(self):
@@ -240,11 +218,11 @@ class FeatureSet(object):
         indexes = set(c.index for c in
             self.concept.upper_neighbors + other.concept.upper_neighbors
             if c.upper_neighbors)
-        return imap(self._sibling, indexes)
+        return map(self._sibling, indexes)
 
     def _upset_nonsup(self):
         indexes = (c.index for c in tools.butlast(self.concept.upset()))
-        return imap(self._sibling, indexes)
+        return map(self._sibling, indexes)
 
     def _upset_union_nonsup(self, other):
         return tools.butlast(self.system.upset_union([self, other]))

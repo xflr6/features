@@ -1,7 +1,8 @@
 # tools.py
 
-from itertools import izip
 import string
+
+from ._compat import PY2, zip
 
 __all__ = ['uniqued', 'butlast', 'generic_translate']
 
@@ -44,25 +45,32 @@ def generic_translate(frm=None, to=None, delete=''):
     >>> translate('Holy grail')
     'Bald gail'
 
-    >>> translate(u'Holy grail')
-    u'Bald gail'
+    >>> translate(u'Holy grail') == u'Bald gail'
+    True
     """
-    delete_dict = dict.fromkeys(ord(unicode(d)) for d in delete)
+    if PY2:
+        delete_dict = dict.fromkeys(ord(unicode(d)) for d in delete)
 
-    if frm is None and to is None:
-        string_trans = None
-        unicode_table = delete_dict
+        if frm is None and to is None:
+            string_trans = None
+            unicode_table = delete_dict
+        else:
+            string_trans = string.maketrans(frm, to)
+            unicode_table = dict((ord(unicode(f)), unicode(t))
+                for f, t in zip(frm, to), **delete_dict)
+
+        string_args = (string_trans, delete) if delete else (string_trans,)
+
+        translate_args = [string_args, (unicode_table,)]
+
+        def translate(basestr):
+            args = translate_args[isinstance(basestr, unicode)]
+            return basestr.translate(*args)
+
     else:
-        string_trans = string.maketrans(frm, to)
-        unicode_table = dict((ord(unicode(f)), unicode(t))
-            for f, t in izip(frm, to), **delete_dict)
+        string_trans = str.maketrans(frm or '', to or '', delete or '')
 
-    string_args = (string_trans, delete) if delete else (string_trans,)
-
-    translate_args = [string_args, (unicode_table,)]
-
-    def translate(basestr):
-        args = translate_args[isinstance(basestr, unicode)]
-        return basestr.translate(*args)
+        def translate(basestr):
+            return basestr.translate(string_trans)
 
     return translate

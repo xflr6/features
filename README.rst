@@ -30,6 +30,8 @@ relations** using the Graphviz_ graph layout library.
 Installation
 ------------
 
+This package runs under Python 2.7 and 3.3+, use pip_ to install:
+
 .. code:: bash
 
     $ pip install features
@@ -65,7 +67,7 @@ The definition of a feature system is stored in its ``context`` object:
 
 .. code:: python
 
-    >>> print fs.context  # doctest: +ELLIPSIS
+    >>> print(fs.context)  # doctest: +ELLIPSIS
     <Context object mapping 6 objects to 10 properties at 0x...>
           |+1|-1|+2|-2|+3|-3|+sg|+pl|-sg|-pl|
         1s|X |  |  |X |  |X |X  |   |   |X  |
@@ -133,7 +135,7 @@ extent order:
 .. code:: python
 
     >>> for f in fs:
-    ...     print f, f.concept.extent
+    ...     print('%s %s' % (f, f.concept.extent))
     [+1 -1 +2 -2 +3 -3 +sg +pl -sg -pl] ()
     [+1 +sg] ('1s',)
     [+1 +pl] ('1p',)
@@ -188,7 +190,7 @@ Usually, it is more convenient to let the system extract the features from a
 string:
 
 .. code:: python
-	
+
     >>> fs('+1 +sg')
     FeatureSet('+1 +sg')
 
@@ -196,7 +198,7 @@ Leading plusses can be omitted. Spaces are optional. Case, order, and
 duplication of features are ignored.
 
 .. code:: python
-	
+
     >>> fs('2 pl')
     FeatureSet('+2 +pl')
 
@@ -327,16 +329,16 @@ Create a graph of the feature system lattice.
 
     >>> dot = fs.graphviz()
 
-    >>> print dot.source  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+    >>> print(dot.source)  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
     // <FeatureSystem('plural') of 6 atoms 22 featuresets>
     digraph plural {
-    graph [margin=0]
-    edge [arrowtail=none dir=back penwidth=.5]
-    	f0 [label="+1 &minus;1 +2 &minus;2 +3 &minus;3 +sg +pl &minus;sg &minus;pl"]
-    	f1 [label="+1 +sg"]
-    		f1 -> f0
-    	f2 [label="+1 +pl"]
-    		f2 -> f0
+    	graph [margin=0]
+    	edge [arrowtail=none dir=back penwidth=.5]
+    		f0 [label="+1 &minus;1 +2 &minus;2 +3 &minus;3 +sg +pl &minus;sg &minus;pl"]
+    		f1 [label="+1 +sg"]
+    			f1 -> f0
+    		f2 [label="+1 +pl"]
+    			f2 -> f0
     ...
 
 .. image:: https://raw.github.com/xflr6/features/master/docs/fs-plural.png
@@ -368,7 +370,7 @@ from an ASCII-art style table:
     <FeatureSystem object of 4 atoms 10 featuresets at 0x...>
 
     >>> for f in fs:
-    ...     print f, f.concept.extent
+    ...     print('%s %s' % (f, f.concept.extent))
     [+male -male +adult -adult] ()
     [+male +adult] ('man',)
     [-male +adult] ('woman',)
@@ -431,27 +433,29 @@ Retrieve feature sets, extents and intents:
 
 .. code:: python
 
-    >>> print fs('+high')
+    >>> print(fs('+high'))
     [+high -low]
 
-    >>> fs('high round').concept.extent
-    (u'y', u'u')
+    >>> print('high round = %s, %s' % fs('high round').concept.extent)
+    high round = y, u
 
-    >>> fs.lattice[('i', 'e', 'o')].intent
-    (u'-low',)
+    >>> print('i, e, o = %s' % fs.lattice[('i', 'e', 'o')].intent)
+    i, e, o = -low
 
-Logical relations between feature pairs:
+
+Logical relations between feature pairs (excluding orthogonal pairs):
 
 .. code:: python
 
-    >>> fs.context.relations()  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    [<u'+high' Complement u'-high'>, <u'+low' Complement u'-low'>,
-     <u'+back' Complement u'-back'>, <u'+round' Complement u'-round'>,
-     <u'+high' Incompatible u'+low'>,
-     <u'+high' Implication u'-low'>, <u'+low' Implication u'-high'>,
-     <u'-high' Subcontrary u'-low'>,
-     <u'+high' Orthogonal u'+back'>, <u'+high' Orthogonal u'-back'>,
-     ...
+    >>> print(fs.context.relations())  # doctest: +NORMALIZE_WHITESPACE
+    +high  complement   -high
+    +low   complement   -low
+    +back  complement   -back
+    +round complement   -round
+    +high  incompatible +low
+    +high  implication  -low
+    +low   implication  -high
+    -high  subcontrary  -low
 
 
 Advanced usage
@@ -500,6 +504,8 @@ License
 
 Features is distributed under the `MIT license`_.
 
+
+.. _pip: http://pip.readthedocs.org
 
 .. _Graphviz: http://www.graphviz.org
 .. _Formal Concept Analysis: http://en.wikipedia.org/wiki/Formal_concept_analysis

@@ -1,8 +1,10 @@
 # meta.py - retrieve feature system from config file section
 
+from ._compat import string_types, copyreg
+
 import fileconfig
 
-__all__ = ['Config', 'FeatureSystemMeta']
+__all__ = ['Config', 'FeatureSystemMeta', 'FeatureSetMeta']
 
 DEFAULT = 'default'
 
@@ -14,18 +16,17 @@ class Config(fileconfig.Stacked):
 
     _encoding = 'utf_8_sig'
 
-    def __init__(self, key, context, format='table', aliases=None, inherits=None, str_maximal=False, description=None):
+    def __init__(self, key, context, format='table', aliases=None, inherits=None,
+                 str_maximal=False, description=None):
         self.key = key
         self.context = context.strip()
         self.format = format
         self.aliases = [] if aliases is None else aliases
         self.inherits = inherits
-        self.str_maximal = (False if not str_maximal else True if str_maximal is True
+        self.str_maximal = (False if not str_maximal
+            else True if str_maximal is True
             else str_maximal.lower() in ('1', 'yes', 'true', 'on'))
         self.description = '' if description is None else description.strip()
-
-    def __str__(self):
-        return '%r\n%s' % (self, self.context)
 
 
 class FeatureSystemMeta(type):
@@ -37,7 +38,7 @@ class FeatureSystemMeta(type):
         if isinstance(config, self):
             return config
 
-        if isinstance(config, basestring):
+        if isinstance(config, string_types):
             config = Config(config)
 
         if config.key is not None and config.key in self.__map:
@@ -52,5 +53,25 @@ class FeatureSystemMeta(type):
             return inst(string)
         return inst
 
-    def __iter__(self):
-        return (self(config) for config in Config)
+
+class FeatureSetMeta(type):
+
+    system = None
+
+    def __call__(self, string=''):
+        return self.system(string)
+
+    def __repr__(self):
+        if self.system is None:
+            return type.__repr__(self)
+        return '<class %r of %r>' % (self.__name__, self.system)
+
+    def __reduce__(self):
+        if self.system is None:
+            return self.__name__
+        elif self.system.key is None:
+            return self.system.__class__, (self.system._config, -1)
+        return self.system.__class__, (self.system.key, -1)
+
+
+copyreg.pickle(FeatureSetMeta, FeatureSetMeta.__reduce__)
