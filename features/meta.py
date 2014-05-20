@@ -14,7 +14,7 @@ class Config(fileconfig.Stacked):
 
     filename = 'config.ini'
 
-    _encoding = 'utf_8_sig'
+    _encoding = 'utf-8-sig'
 
     def __init__(self, key, context, format='table', aliases=None, inherits=None,
                  str_maximal=False, description=None):

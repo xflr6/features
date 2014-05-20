@@ -1,7 +1,7 @@
 Features
 ========
 
-|PyPI version| |License| |Downloads|
+|PyPI version| |License| |Wheel| |Downloads|
 
 Features is a simple implementation of **feature set algebra** in Python.
 
@@ -519,12 +519,15 @@ Features is distributed under the `MIT license`_.
 .. |--| unicode:: U+2013
 
 
-.. |PyPI version| image:: https://pypip.in/v/features/badge.png
+.. |PyPI version| image:: https://pypip.in/v/features/badge.svg
     :target: https://pypi.python.org/pypi/features
     :alt: Latest PyPI Version
-.. |License| image:: https://pypip.in/license/features/badge.png
+.. |License| image:: https://pypip.in/license/features/badge.svg
     :target: https://pypi.python.org/pypi/features
     :alt: License
-.. |Downloads| image:: https://pypip.in/d/features/badge.png
+.. |Wheel| image:: https://pypip.in/wheel/features/badge.svg
+    :target: https://pypi.python.org/pypi/features
+    :alt: Wheel Status
+.. |Downloads| image:: https://pypip.in/d/features/badge.svg
     :target: https://pypi.python.org/pypi/features
     :alt: Downloads

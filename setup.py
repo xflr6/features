@@ -1,25 +1,27 @@
 # setup.py
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='features',
-    version='0.5',
+    version='0.5.1',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Feature set algebra for linguistics',
     keywords='lattice morphology phonology learning fca',
     license='MIT',
     url='http://github.com/xflr6/features',
-    packages=['features'],
-    package_data={
-        'features': ['config.ini'],
-    },
+    packages=find_packages(),
+    package_data={'features': ['config.ini']},
     install_requires=[
         'concepts>=0.7, <0.8',
         'fileconfig>=0.5, <0.6',
         'graphviz>=0.3, <0.4',
     ],
+    extras_require={
+        'dev': ['wheel'],
+        'test': ['nose', 'coverage', 'flake8', 'pep8-naming'],
+    },
     platforms='any',
     long_description=open('README.rst').read(),
     classifiers=[

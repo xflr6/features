@@ -23,23 +23,23 @@ def make_regex(string):
     >>> make_regex('+eggs-spam')
     Traceback (most recent call last):
        ...
-    ValueError: Inappropriate feature name: '+eggs-spam'
+    ValueError: inappropriate feature name: '+eggs-spam'
 
     >>> make_regex('')
     Traceback (most recent call last):
         ...
-    ValueError: Inappropriate feature name: ''
+    ValueError: inappropriate feature name: ''
     """
     if string and string[0] in '+-':
         sign, name = string[0], string[1:]
         if not name or '+' in name or '-' in name:
-            raise ValueError('Inappropriate feature name: %r' % string)
+            raise ValueError('inappropriate feature name: %r' % string)
 
         tmpl = r'([+]?%s)' if sign == '+' else r'(-%s)'
         return tmpl % name
 
     if not string or '+' in string or '-' in string:
-        raise ValueError('Inappropriate feature name: %r' % string)
+        raise ValueError('inappropriate feature name: %r' % string)
 
     return r'(%s)' % string
 
@@ -58,7 +58,7 @@ class Parser(object):
     >>> parse('spam')
     Traceback (most recent call last):
         ...
-    ValueError: Unmatched feature splitting 'spam', known features: ['+1', '-1', 'sg', 'pl']
+    ValueError: unmatched feature splitting 'spam', known features: ['+1', '-1', 'sg', 'pl']
     """
 
     make_regex = staticmethod(make_regex)
@@ -77,7 +77,7 @@ class Parser(object):
 
         if (len(remove_sign_sp(string)) !=
             len(remove_sign_sp(''.join(features)))):
-            raise ValueError('Unmatched feature splitting %r, '
+            raise ValueError('unmatched feature splitting %r, '
                 'known features: %r' % (string, self.features))
 
         return features

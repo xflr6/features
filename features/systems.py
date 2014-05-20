@@ -99,7 +99,7 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         if (len(context.objects) != len(context.lattice.atoms) or
             any((o,) != a.extent for o, a in
                 zip(context.objects, context.lattice.atoms))):
-            raise ValueError('Context does not allow to refer '
+            raise ValueError('context does not allow to refer '
                 'to each individual object: %r' % context)
 
         names = tools.uniqued(parsers.remove_sign(p) for p in context.properties)

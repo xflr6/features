@@ -1,6 +1,0 @@
-include README.rst LICENSE CHANGES
-include dev-requirements.txt requirements.txt .gitignore
-include run-tests.py visualize-systems.py
-include features/config.ini
-recursive-include tests *.py
-recursive-include docs *.ini *.png *.svg

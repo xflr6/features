@@ -13,8 +13,8 @@ class TestFeatureSystem(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.fs = FeatureSystem('plural')
-        conf = Config.create(context=cls.fs._config.context)
-        cls.fs_noname = FeatureSystem(conf)
+        config = Config.create(context=cls.fs._config.context)
+        cls.fs_noname = FeatureSystem(config)
 
     @classmethod
     def tearDownClass(cls):
@@ -22,23 +22,23 @@ class TestFeatureSystem(unittest.TestCase):
         del cls.fs_noname
 
     def test_init_inatomic(self):
-        conf = Config.create(context='''
+        config = Config.create(context='''
             |catholic|protestant|
         spam|    X   |          |
         eggs|    X   |          |
         ham |        |     X    |
         ''')
         with self.assertRaisesRegexp(ValueError, 'individual'):
-            FeatureSystem(conf)
+            FeatureSystem(config)
 
     def test_init_substrings(self):
-        conf = Config.create(context='''
+        config = Config.create(context='''
             |egg|eggs|
         spam| X |    |
         ham |   | X  |
         ''')
         with self.assertRaisesRegexp(ValueError, 'substring'):
-            FeatureSystem(conf)
+            FeatureSystem(config)
 
     def test_pickle_instance(self):
         self.assertIs(pickle.loads(pickle.dumps(self.fs)), self.fs)
