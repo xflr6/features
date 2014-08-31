@@ -159,9 +159,9 @@ extent order:
     [-1] ('2s', '2p', '3s', '3p')
     [] ('1s', '1p', '2s', '2p', '3s', '3p')
 
-The string representations will show the smallest possible notation for each
-feature set by default (shortlex minimum). The full representation is also
-available:
+The **string representations** will show the smallest possible notation for
+each feature set by default (shortlex minimum). The full representation is also
+available (and an extent-based representation):
 
 .. code:: python
 
@@ -170,6 +170,9 @@ available:
 
     >>> fs('1sg').string_maximal
     '+1 -2 -3 +sg -pl'
+
+    >>> fs('1sg').string_extent
+    '1s'
 
 To use the maximal representation for ``__str__``, put ``str_maximal = true``
 into the configuration (see below).
@@ -397,18 +400,18 @@ for example:
     str_maximal = true
     context = 
        |+high|-high|+low|-low|+back|-back|+round|-round|
-      i|  X  |     |    |  X |     |  X  |      |  X   |
-      y|  X  |     |    |  X |     |  X  |  X   |      |
-      ɨ|  X  |     |    |  X |  X  |     |      |  X   |
-      u|  X  |     |    |  X |  X  |     |  X   |      |
-      e|     |  X  |    |  X |     |  X  |      |  X   |
-      ø|     |  X  |    |  X |     |  X  |  X   |      |
-      ʌ|     |  X  |    |  X |  X  |     |      |  X   |
-      o|     |  X  |    |  X |  X  |     |  X   |      |
-      æ|     |  X  |  X |    |     |  X  |      |  X   |
-      œ|     |  X  |  X |    |     |  X  |  X   |      |
-      ɑ|     |  X  |  X |    |  X  |     |      |  X   |
-      ɒ|     |  X  |  X |    |  X  |     |  X   |      |
+      i|  X  |     |    |  X |     |  X  |      |   X  |
+      y|  X  |     |    |  X |     |  X  |   X  |      |
+      ɨ|  X  |     |    |  X |  X  |     |      |   X  |
+      u|  X  |     |    |  X |  X  |     |   X  |      |
+      e|     |  X  |    |  X |     |  X  |      |   X  |
+      ø|     |  X  |    |  X |     |  X  |   X  |      |
+      ʌ|     |  X  |    |  X |  X  |     |      |   X  |
+      o|     |  X  |    |  X |  X  |     |   X  |      |
+      æ|     |  X  |  X |    |     |  X  |      |   X  |
+      œ|     |  X  |  X |    |     |  X  |   X  |      |
+      ɑ|     |  X  |  X |    |  X  |     |      |   X  |
+      ɒ|     |  X  |  X |    |  X  |     |   X  |      |
 
 Add your config file, overriding existing sections with the same name:
 
@@ -456,6 +459,118 @@ Logical relations between feature pairs (excluding orthogonal pairs):
     +high  implication  -low
     +low   implication  -high
     -high  subcontrary  -low
+
+
+Usage example
+-------------
+
+Make a paradigm for the present and past tense forms of the English copula
+*to be* and compute the common features for all different word forms.
+
+Define a feature system with the **meanings** for the paradigm cells.
+
+.. code:: python
+
+    >>> context = '''
+    ...         |+1|-1|+2|-2|+3|-3|+sg|+pl|+pst|-pst|
+    ... 1sg.pres| X|  |  | X|  | X|  X|   |    |   X|
+    ... 1pl.pres| X|  |  | X|  | X|   |  X|    |   X|
+    ... 2sg.pres|  | X| X|  |  | X|  X|   |    |   X|
+    ... 2pl.pres|  | X| X|  |  | X|   |  X|    |   X|
+    ... 3sg.pres|  | X|  | X| X|  |  X|   |    |   X|
+    ... 3pl.pres|  | X|  | X| X|  |   |  X|    |   X|
+    ... 1sg.past| X|  |  | X|  | X|  X|   |   X|    |
+    ... 1pl.past| X|  |  | X|  | X|   |  X|   X|    |
+    ... 2sg.past|  | X| X|  |  | X|  X|   |   X|    |
+    ... 2pl.past|  | X| X|  |  | X|   |  X|   X|    |
+    ... 3sg.past|  | X|  | X| X|  |  X|   |   X|    |
+    ... 3pl.past|  | X|  | X| X|  |   |  X|   X|    |'''
+
+    >>> fs = features.make_features(context)
+
+    >>> cellmeanings = fs.atoms
+
+Enter the word **forms** for each cell.
+
+.. code:: python
+
+    >>> cellforms = [
+    ...     'am', 'are',
+    ...     'are', 'are',
+    ...     'is', 'are',
+    ... 
+    ...     'was', 'were',
+    ...     'were', 'were',
+    ...     'was', 'were']
+
+Create the **paradigm** as ordered mapping from meaning to form.
+
+.. code:: python
+
+    >>> from collections import OrderedDict
+
+    >>> paradigm = OrderedDict(zip(cellmeanings, cellforms))
+
+Pretty-print the meaning -> word form mapping.
+
+.. code:: python
+
+    >>> for meaning, form in paradigm.items():
+    ...     print('%s | %s' % (meaning.string_extent, form))
+    1sg.pres | am
+    1pl.pres | are
+    2sg.pres | are
+    2pl.pres | are
+    3sg.pres | is
+    3pl.pres | are
+    1sg.past | was
+    1pl.past | were
+    2sg.past | were
+    2pl.past | were
+    3sg.past | was
+    3pl.past | were
+
+Create a **correspondence** from each word form to the list of cell meanings
+where it occurs.
+
+.. code:: python
+
+    >>> occurrences = OrderedDict()
+
+    >>> for meaning in paradigm:
+    ...     form = paradigm[meaning]
+    ...     occurrences.setdefault(form, []).append(meaning)
+
+Pretty-print the form -> occurrences mapping.
+
+.. code:: python
+
+    >>> for form in occurrences:
+    ...     meanings = occurrences[form]
+    ...     labels = ', '.join(m.string_extent for m in meanings)
+    ...     print('%4s | %s' % (form, labels))
+      am | 1sg.pres
+     are | 1pl.pres, 2sg.pres, 2pl.pres, 3pl.pres
+      is | 3sg.pres
+     was | 1sg.past, 3sg.past
+    were | 1pl.past, 2sg.past, 2pl.past, 3pl.past
+
+Show the **common features** for all word forms. Computed with the
+``join``-method (generalization, `least upper bound`_).
+
+.. code:: python
+
+    >>> for form in occurrences:
+    ...     meanings = occurrences[form]
+    ...     common = fs.join(meanings)
+    ...     print('%4s | %s' % (form, common))
+      am | [+1 +sg -pst]
+     are | [-pst]
+      is | [+3 +sg -pst]
+     was | [-2 +sg +pst]
+    were | [+pst]
+
+Their **necessary conditions**.
 
 
 Advanced usage
@@ -509,6 +624,7 @@ Features is distributed under the `MIT license`_.
 
 .. _Graphviz: http://www.graphviz.org
 .. _Formal Concept Analysis: http://en.wikipedia.org/wiki/Formal_concept_analysis
+.. _least upper bound: http://en.wikipedia.org/wiki/Join_and_meet
 
 .. _concepts: http://pypi.python.org/pypi/concepts
 .. _fileconfig: http://pypi.python.org/pypi/fileconfig

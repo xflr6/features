@@ -1,6 +1,7 @@
 # parsers.py - extract kown features from string
 
 import re
+from itertools import permutations
 
 from ._compat import map
 
@@ -22,7 +23,7 @@ def make_regex(string):
 
     >>> make_regex('+eggs-spam')
     Traceback (most recent call last):
-       ...
+        ...
     ValueError: inappropriate feature name: '+eggs-spam'
 
     >>> make_regex('')
@@ -44,8 +45,25 @@ def make_regex(string):
     return r'(%s)' % string
 
 
+def substring_names(features):
+    """Yield all feature name pairs in substring relation.
+
+    >>> list(substring_names(['+spam', '-ham', '+pam']))
+    [('pam', 'spam')]
+    """
+    names = tools.uniqued(map(remove_sign, features))
+    for l, r in permutations(names, 2):
+        if l in r:
+            yield (l, r)
+
+
 class Parser(object):
     """Extract known features from a string.
+
+    >>> Parser(['+masc', '-ma'])
+    Traceback (most recent call last):
+        ...
+    ValueError: feature names in substring relation: [('ma', 'masc')]
 
     >>> parse = Parser(['+1', '-1', 'sg', 'pl'])
 
@@ -64,6 +82,11 @@ class Parser(object):
     make_regex = staticmethod(make_regex)
 
     def __init__(self, features):
+        ambiguous = list(substring_names(features))
+        if ambiguous:
+            raise ValueError('feature names in substring relation: %r'
+                % ambiguous)
+
         regexes = map(make_regex, features)
         pattern = r'(?i)(?:%s)' % '|'.join(regexes)
         self.features = features

@@ -8,8 +8,7 @@ PY2 = sys.version_info[0] == 2
 if PY2:  # pragma: no cover
     string_types = basestring
 
-    from itertools import imap as map
-    from itertools import izip as zip
+    from itertools import imap as map, izip as zip
 
     def py2_bool_to_nonzero(cls):
         cls.__nonzero__ = cls.__bool__
@@ -25,8 +24,7 @@ if PY2:  # pragma: no cover
 else:  # pragma: no cover
     string_types = str
 
-    map = map
-    zip = zip
+    map, zip = map, zip
 
     def py3_unicode_to_str(cls):
         cls.__str__ = cls.__unicode__

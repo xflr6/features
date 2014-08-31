@@ -105,6 +105,7 @@ class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
         self.index = concept.index
         self.string = ' '.join(concept.minimal())
         self.string_maximal = ' '.join(concept.intent)
+        self.string_extent = ' '.join(concept.extent)
 
     def __repr__(self):
         return '%s(%r)' % (self.__class__.__name__, self.string)

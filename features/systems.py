@@ -2,11 +2,9 @@
 
 """Lattice of possible feature sets."""
 
-from itertools import combinations
+import concepts
 
 from ._compat import string_types, zip, map, with_metaclass
-
-import concepts
 
 from . import meta, bases, parsers, tools, visualize
 
@@ -95,17 +93,11 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         self._config = config
 
         context = concepts.Context.fromstring(config.context, frmat=config.format)
-
         if (len(context.objects) != len(context.lattice.atoms) or
             any((o,) != a.extent for o, a in
                 zip(context.objects, context.lattice.atoms))):
             raise ValueError('context does not allow to refer '
                 'to each individual object: %r' % context)
-
-        names = tools.uniqued(parsers.remove_sign(p) for p in context.properties)
-        if any(l in r or r in l for l, r in combinations(names, 2)):
-            raise ValueError('%r %r: some feature names %r are in '
-                'substring relation' % (self.__class__, config.key, names))
 
         self.key = config.key
         self.description = config.description

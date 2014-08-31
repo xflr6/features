@@ -2,6 +2,16 @@ Features Changelog
 ==================
 
 
+Version 0.5.2
+-------------
+
+Added string_extent attribute to feature sets.
+
+Added simple example to README.
+
+Moved feature name sanity checks to parser.
+
+
 Version 0.5.1
 -------------
 

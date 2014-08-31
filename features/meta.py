@@ -1,8 +1,8 @@
 # meta.py - retrieve feature system from config file section
 
-from ._compat import string_types, copyreg
-
 import fileconfig
+
+from ._compat import string_types, copyreg
 
 __all__ = ['Config', 'FeatureSystemMeta', 'FeatureSetMeta']
 
