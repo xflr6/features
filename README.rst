@@ -1,7 +1,7 @@
 Features
 ========
 
-|PyPI version| |License| |Wheel| |Downloads|
+|PyPI version| |License| |Supported Python| |Format| |Downloads|
 
 Features is a simple implementation of **feature set algebra** in Python.
 
@@ -25,6 +25,15 @@ etc.).
 Features creates the **complete lattice** structure between the possible feature
 sets of each feature system and lets you navigate and **visualize their
 relations** using the Graphviz_ graph layout library.
+
+
+Links
+-----
+
+- GitHub: http://github.com/xflr6/features
+- PyPI: http://pypi.python.org/pypi/features
+- Download: http://pypi.python.org/pypi/features#downloads
+- Issue Tracker: http://github.com/xflr6/features/issues
 
 
 Installation
@@ -641,9 +650,12 @@ Features is distributed under the `MIT license`_.
 .. |License| image:: https://pypip.in/license/features/badge.svg
     :target: https://pypi.python.org/pypi/features
     :alt: License
-.. |Wheel| image:: https://pypip.in/wheel/features/badge.svg
+.. |Supported Python| image:: https://pypip.in/py_versions/features/badge.svg
     :target: https://pypi.python.org/pypi/features
-    :alt: Wheel Status
+    :alt: Supported Python Versions
+.. |Format| image:: https://pypip.in/format/features/badge.svg
+    :target: https://pypi.python.org/pypi/features
+    :alt: Format
 .. |Downloads| image:: https://pypip.in/d/features/badge.svg
     :target: https://pypi.python.org/pypi/features
     :alt: Downloads

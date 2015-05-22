@@ -2,7 +2,7 @@
 
 import fileconfig
 
-from ._compat import string_types, copyreg
+from ._compat import string_types, register_reduce
 
 __all__ = ['Config', 'FeatureSystemMeta', 'FeatureSetMeta']
 
@@ -54,6 +54,7 @@ class FeatureSystemMeta(type):
         return inst
 
 
+@register_reduce
 class FeatureSetMeta(type):
 
     system = None
@@ -72,6 +73,3 @@ class FeatureSetMeta(type):
         elif self.system.key is None:
             return self.system.__class__, (self.system._config, -1)
         return self.system.__class__, (self.system.key, -1)
-
-
-copyreg.pickle(FeatureSetMeta, FeatureSetMeta.__reduce__)

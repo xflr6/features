@@ -87,7 +87,7 @@ class Parser(object):
             raise ValueError('feature names in substring relation: %r'
                 % ambiguous)
 
-        regexes = map(make_regex, features)
+        regexes = map(self.make_regex, features)
         pattern = r'(?i)(?:%s)' % '|'.join(regexes)
         self.features = features
         self.regex = re.compile(pattern)
