@@ -644,18 +644,18 @@ Features is distributed under the `MIT license`_.
 .. |--| unicode:: U+2013
 
 
-.. |PyPI version| image:: https://pypip.in/v/features/badge.svg
+.. |PyPI version| image:: https://img.shields.io/pypi/v/features.svg
     :target: https://pypi.python.org/pypi/features
     :alt: Latest PyPI Version
-.. |License| image:: https://pypip.in/license/features/badge.svg
+.. |License| image:: https://img.shields.io/pypi/l/features.svg
     :target: https://pypi.python.org/pypi/features
     :alt: License
-.. |Supported Python| image:: https://pypip.in/py_versions/features/badge.svg
+.. |Supported Python| image:: https://img.shields.io/pypi/pyversions/features.svg
     :target: https://pypi.python.org/pypi/features
     :alt: Supported Python Versions
-.. |Format| image:: https://pypip.in/format/features/badge.svg
+.. |Format| image:: https://img.shields.io/pypi/format/features.svg
     :target: https://pypi.python.org/pypi/features
     :alt: Format
-.. |Downloads| image:: https://pypip.in/d/features/badge.svg
+.. |Downloads| image:: https://img.shields.io/pypi/dm/features.svg
     :target: https://pypi.python.org/pypi/features
     :alt: Downloads
