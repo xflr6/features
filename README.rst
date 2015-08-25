@@ -32,8 +32,8 @@ Links
 
 - GitHub: http://github.com/xflr6/features
 - PyPI: http://pypi.python.org/pypi/features
-- Download: http://pypi.python.org/pypi/features#downloads
 - Issue Tracker: http://github.com/xflr6/features/issues
+- Download: http://pypi.python.org/pypi/features#downloads
 
 
 Installation
