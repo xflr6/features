@@ -11,6 +11,8 @@ __all__ = ['FeatureSet']
 class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
     """Formal concept intent as ordered set of features.
 
+    Usage:
+
     >>> from features.systems import FeatureSystem
 
     >>> fs = FeatureSystem('plural')

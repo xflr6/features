@@ -14,6 +14,8 @@ __all__ = ['FeatureSystem']
 class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
     """Feature set lattice defined by config instance.
 
+    Usage:
+
     >>> fs = FeatureSystem('plural')
 
     >>> FeatureSystem(fs) is fs

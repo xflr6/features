@@ -426,7 +426,7 @@ Add your config file, overriding existing sections with the same name:
 
 .. code:: python
 
-    >>> features.add_config('docs/phonemes.ini')
+    >>> features.add_config('examples/phonemes.ini')
 
 If the filename is relative, it is resolved relative to the file where the
 ``add`` method was called. Check the documentation of the fileconfig_ package
