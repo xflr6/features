@@ -56,8 +56,8 @@ def generic_translate(frm=None, to=None, delete=''):
             unicode_table = delete_dict
         else:
             string_trans = string.maketrans(frm, to)
-            unicode_table = dict((ord(unicode(f)), unicode(t))
-                for f, t in zip(frm, to), **delete_dict)
+            unicode_table = dict(((ord(unicode(f)), unicode(t))
+                for f, t in zip(frm, to)), **delete_dict)
 
         string_args = (string_trans, delete) if delete else (string_trans,)
 
