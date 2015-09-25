@@ -21,12 +21,12 @@ class Config(fileconfig.Stacked):
         self.key = key
         self.context = context.strip()
         self.format = format
-        self.aliases = [] if aliases is None else aliases
+        self.aliases = aliases if aliases is not None else []
         self.inherits = inherits
         self.str_maximal = (False if not str_maximal
             else True if str_maximal is True
             else str_maximal.lower() in ('1', 'yes', 'true', 'on'))
-        self.description = '' if description is None else description.strip()
+        self.description = description.strip() if description is not None else ''
 
 
 class FeatureSystemMeta(type):

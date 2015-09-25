@@ -27,7 +27,7 @@ def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, re
     if topdown is None:
         topdown = TOPDOWN
 
-    name = '%#x' % id(fs) if fs.key is None else fs.key
+    name = fs.key if fs.key is not None else '%#x' % id(fs)
 
     if filename is None:
         filename = 'fs-%s%s.gv' % (name, '-max' if maximal_label else '')
