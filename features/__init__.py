@@ -15,10 +15,15 @@ __all__ = ['Config', 'FeatureSystem', 'add_config', 'make_features']
 
 
 def add_config(filename):
-    """Add feature system definition file on top of the stack.
+    """Add feature system definition file on top of the stack of config files.
 
     Args:
         filename: Path to the INI-file with feature system definitions.
+
+    Note:
+        If `filename` is a relative path, it is resolved relative to the
+        directory of the caller (which may be different from the current working
+        dicrectry).
     """
     Config.add(filename, caller_steps=2)
 

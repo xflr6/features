@@ -161,9 +161,9 @@ Features is distributed under the `MIT license`_.
 .. _Formal Concept Analysis: http://en.wikipedia.org/wiki/Formal_concept_analysis
 .. _source repository: http://github.com/xflr6/features/blob/master/features/config.ini
 .. _logical connectives: http://en.wikipedia.org/wiki/Template:Logical_connectives_table_and_Hasse_diagram
-.. _lattice: https://en.wikipedia.org/wiki/Lattice_(order)
+.. _lattice: http://en.wikipedia.org/wiki/Lattice_(order)
 .. _Hasse graph: http://en.wikipedia.org/wiki/Hasse_diagram
-.. _the docs: https://features.readthedocs.org/en/latest/manual.html
+.. _the docs: http://features.readthedocs.org/en/latest/manual.html
 
 .. _concepts: http://pypi.python.org/pypi/concepts
 .. _fileconfig: http://pypi.python.org/pypi/fileconfig

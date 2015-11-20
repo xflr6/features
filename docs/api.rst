@@ -3,10 +3,13 @@
 API Reference
 =============
 
-FeatureSystem
--------------
+.. autofunction:: features.add_config
 
 .. autofunction:: features.make_features
+
+
+FeatureSystem
+-------------
 
 .. autoclass:: features.FeatureSystem
     :members:
@@ -19,6 +22,7 @@ FeatureSystem
 
 FeatureSet
 ----------
+
 .. autoclass:: features.bases.FeatureSet
     :members:
         atoms,
@@ -32,8 +36,6 @@ FeatureSet
 
 Config
 ------
-
-.. autofunction:: features.add_config
 
 .. autoclass:: features.Config
     :members:

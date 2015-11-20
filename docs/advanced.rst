@@ -40,9 +40,9 @@ on the resulting object.
 Customization
 -------------
 
-To customize the behavior of the feature sets, override the ``FeatureSet``
-class-attribute of ``FeatureSystem`` with a subclass that implements your
-wanted features:
+To customize the behavior of the feature sets, override the
+:attr:`~.FeatureSystem.FeatureSet` class-attribute of :class:`.FeatureSystem`
+with a subclass that implements your wanted features:
 
 .. code:: python
 

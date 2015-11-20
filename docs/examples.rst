@@ -102,7 +102,7 @@ Pretty-print the form -> occurrences mapping.
     were | 1pl.past, 2sg.past, 2pl.past, 3pl.past
 
 Show the **common features** for all word forms, computed with the
-``join``-method (generalization, `least upper bound`_).
+:meth:`~.FeatureSystem.join`-method (generalization, `least upper bound`_).
 
 .. code:: python
 

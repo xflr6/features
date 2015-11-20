@@ -7,8 +7,8 @@ User Guide
 Installation
 ------------
 
-``features`` is a pure-python package implementing **feature set algebra** as
-commonly used in linguistics. It runs under both Python 2.7 and 3.3+ and is
+:mod:`features` is a pure-python package implementing **feature set algebra**
+as commonly used in linguistics. It runs under both Python 2.7 and 3.3+ and is
 `available from PyPI`_. To install it using pip_, run the following command:
 
 .. code:: bash
@@ -16,12 +16,13 @@ commonly used in linguistics. It runs under both Python 2.7 and 3.3+ and is
     $ pip install features
 
 For a system-wide install, this typically requires administrator access. For an
-isolated installation, you can run the same inside a virtualenv_.
+isolated installation, you can run the same inside a virtualenv_ or a venv_
+(Python 3.3+ only).
 
 The pip-command will automatically download and install the (pure-python)
 fileconfig_ and concepts_ packages (plus dependencies) from PyPI. The latter
 provides the lower level `Formal Concept Analysis`_ (FCA) algorithms on which
-``features`` is based.
+:mod:`features` is based.
 
 Features is essentially a convenience wrapper around the FCA-functionality of
 ``concepts``.
@@ -33,7 +34,7 @@ Feature systems
 Features includes some **predefined feature systems** that you can try out
 immediately and will be used as example in this documentation. See below on
 how to define, persist, and load you own feature systems/definitions.
-To load a feature system, pass its **name** to ``features.FeatureSystem``:
+To load a feature system, pass its **name** to :class:`features.FeatureSystem`:
 
 .. code:: python
 
@@ -50,9 +51,9 @@ Python directory). You can either directly define new systems within a Python
 script or create your own INI-file(s) with definitions so that you can load 
 and reuse feature systems in different scripts.
 
-The definition of a feature system is stored in its ``context`` object. It is
-basically a cross-table giving the features (properties) for each thing to be
-described (object):
+The definition of a feature system is stored in its
+:attr:`~.FeatureSystem.context` object. It is basically a cross-table giving
+the features (properties) for each thing to be described (object):
 
 .. code:: python
 
@@ -81,8 +82,8 @@ described (object):
      (False, True, False, True, True, False, False, True, True, False)]
 
 In other words, it provides a mapping from objects to features and vice versa.
-Check the documentation of the concepts_ package for further information on its
-full functionality.
+Check the `documentation <concepts docs_>`_ of the concepts_ package for
+further information on its full functionality.
 
 .. code:: python
 
@@ -163,8 +164,9 @@ available (and an extent-based representation):
     >>> fs('1sg').string_extent
     '1s'
 
-To use the maximal representation for ``__str__``, put ``str_maximal = true``
-into the configuration (see below).
+To use the maximal representation for :meth:`~.FeatureSet.__str__`, put
+``str_maximal = true`` into the configuration file section (see
+`below <Definition_>`_).
 
 
 Retrieval
@@ -379,8 +381,8 @@ Add your config file, overriding existing sections with the same name:
     >>> features.add_config('examples/phonemes.ini')
 
 If the filename is relative, it is resolved relative to the file where the
-``add`` method was called. Check the documentation of the fileconfig_ package
-for details.
+:func:`.add_config` function was called. Check the documentation of the
+fileconfig_ package for details.
 
 Load your feature system:
 
@@ -424,10 +426,12 @@ Logical relations between feature pairs (excluding orthogonal pairs):
 
 .. _pip: http://pip.readthedocs.org
 .. _virtualenv: http://virtualenv.pypa.io
+.. _venv: http://docs.python.org/3/library/venv.html
 
 .. _Graphviz graph layout software: http://www.graphviz.org
 .. _Formal Concept Analysis: http://en.wikipedia.org/wiki/Formal_concept_analysis
 
 .. _concepts: http://pypi.python.org/pypi/concepts
+.. _concepts docs: http://concepts.readthedocs.org
 .. _fileconfig: http://pypi.python.org/pypi/fileconfig
 .. _graphviz: http://pypi.python.org/pypi/graphviz
