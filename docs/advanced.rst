@@ -29,7 +29,7 @@ Create a graph of the feature system lattice.
     			f2 -> f0
     ...
 
-.. image:: _static/fs-plural.png
+.. image:: _static/fs-plural.svg
     :width: 720px
     :align: center
 

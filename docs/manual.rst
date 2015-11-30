@@ -16,8 +16,8 @@ as commonly used in linguistics. It runs under both Python 2.7 and 3.3+ and is
     $ pip install features
 
 For a system-wide install, this typically requires administrator access. For an
-isolated installation, you can run the same inside a virtualenv_ or a venv_
-(Python 3.3+ only).
+isolated installation, you can run the same inside a virtualenv_ or a
+:mod:`py3:venv` (Python 3.3+ only).
 
 The pip-command will automatically download and install the (pure-python)
 fileconfig_ and concepts_ packages (plus dependencies) from PyPI. The latter
@@ -426,7 +426,6 @@ Logical relations between feature pairs (excluding orthogonal pairs):
 
 .. _pip: http://pip.readthedocs.org
 .. _virtualenv: http://virtualenv.pypa.io
-.. _venv: http://docs.python.org/3/library/venv.html
 
 .. _Graphviz graph layout software: http://www.graphviz.org
 .. _Formal Concept Analysis: http://en.wikipedia.org/wiki/Formal_concept_analysis

@@ -49,7 +49,8 @@ Enter the word **forms** for each cell.
     ...     'were', 'were',
     ...     'was', 'were']
 
-Create the **paradigm** as ordered mapping from meaning to form.
+Create the **paradigm** as ordered mapping
+(:class:`py:collections.OrderedDict`) from meaning to form.
 
 .. code:: python
 
