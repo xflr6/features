@@ -15,9 +15,9 @@ setup(
     package_data={'features': ['config.ini']},
     zip_safe=False,
     install_requires=[
-        'concepts>=0.7, <0.8',
-        'fileconfig>=0.5, <0.6',
-        'graphviz>=0.3, <0.5',
+        'concepts>=0.7, <1.0',
+        'fileconfig>=0.5, <1.0',
+        'graphviz>=0.3, <1.0',
     ],
     extras_require={
         'test': ['nose', 'coverage', 'flake8', 'pep8-naming'],
