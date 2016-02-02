@@ -1,4 +1,10 @@
 # exact dependency versions used in development
 concepts==0.7.9
 fileconfig==0.5.2
-graphviz==0.4.8
+graphviz==0.4.9
+# dependencies for testing and building
+coverage
+flake8
+nose
+pep8-naming
+wheel

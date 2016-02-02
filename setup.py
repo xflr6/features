@@ -19,10 +19,6 @@ setup(
         'fileconfig>=0.5, <1.0',
         'graphviz>=0.3, <1.0',
     ],
-    extras_require={
-        'test': ['nose', 'coverage', 'flake8', 'pep8-naming'],
-        'dev': ['wheel'],
-    },
     platforms='any',
     long_description=open('README.rst').read(),
     classifiers=[
