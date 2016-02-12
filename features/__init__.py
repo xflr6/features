@@ -3,10 +3,10 @@
 """Feature set algebra for linguistics."""
 
 __title__ = 'features'
-__version__ = '0.5.5.dev0'
+__version__ = '0.5.5'
 __author__ = 'Sebastian Bank <sebastian.bank@uni-leipzig.de>'
 __license__ = 'MIT, see LICENSE'
-__copyright__ = 'Copyright (c) 2014-2015 Sebastian Bank'
+__copyright__ = 'Copyright (c) 2014-2016 Sebastian Bank'
 
 from .meta import Config
 from .systems import FeatureSystem

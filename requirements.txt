@@ -1,5 +1,5 @@
 # exact dependency versions used in development
-concepts==0.7.9
+concepts==0.7.10
 fileconfig==0.5.2
 graphviz==0.4.9
 # dependencies for testing and building
