@@ -424,13 +424,13 @@ Logical relations between feature pairs (excluding orthogonal pairs):
 
 .. _available from PyPI: http://pypi.python.org/pypi/features
 
-.. _pip: http://pip.readthedocs.org
+.. _pip: http://pip.readthedocs.io
 .. _virtualenv: http://virtualenv.pypa.io
 
 .. _Graphviz graph layout software: http://www.graphviz.org
 .. _Formal Concept Analysis: http://en.wikipedia.org/wiki/Formal_concept_analysis
 
 .. _concepts: http://pypi.python.org/pypi/concepts
-.. _concepts docs: http://concepts.readthedocs.org
+.. _concepts docs: http://concepts.readthedocs.io
 .. _fileconfig: http://pypi.python.org/pypi/fileconfig
 .. _graphviz: http://pypi.python.org/pypi/graphviz

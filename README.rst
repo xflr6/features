@@ -32,8 +32,8 @@ Links
 
 - GitHub: http://github.com/xflr6/features
 - PyPI: http://pypi.python.org/pypi/features
-- Documentation: http://features.readthedocs.org
-- Changelog: http://features.readthedocs.org/en/latest/changelog.html
+- Documentation: http://features.readthedocs.io
+- Changelog: http://features.readthedocs.io/en/latest/changelog.html
 - Issue Tracker: http://github.com/xflr6/features/issues
 - Download: http://pypi.python.org/pypi/features#downloads
 
@@ -155,7 +155,7 @@ License
 Features is distributed under the `MIT license`_.
 
 
-.. _pip: http://pip.readthedocs.org
+.. _pip: http://pip.readthedocs.io
 
 .. _Graphviz graph layout software: http://www.graphviz.org
 .. _Formal Concept Analysis: http://en.wikipedia.org/wiki/Formal_concept_analysis
@@ -163,7 +163,7 @@ Features is distributed under the `MIT license`_.
 .. _logical connectives: http://en.wikipedia.org/wiki/Template:Logical_connectives_table_and_Hasse_diagram
 .. _lattice: http://en.wikipedia.org/wiki/Lattice_(order)
 .. _Hasse graph: http://en.wikipedia.org/wiki/Hasse_diagram
-.. _the docs: http://features.readthedocs.org/en/latest/manual.html
+.. _the docs: http://features.readthedocs.io/en/latest/manual.html
 
 .. _concepts: http://pypi.python.org/pypi/concepts
 .. _fileconfig: http://pypi.python.org/pypi/fileconfig
