@@ -2,16 +2,16 @@
 
 """Feature set algebra for linguistics."""
 
+from .meta import Config
+from .systems import FeatureSystem
+
+__all__ = ['Config', 'FeatureSystem', 'add_config', 'make_features']
+
 __title__ = 'features'
 __version__ = '0.5.6.dev0'
 __author__ = 'Sebastian Bank <sebastian.bank@uni-leipzig.de>'
 __license__ = 'MIT, see LICENSE'
 __copyright__ = 'Copyright (c) 2014-2016 Sebastian Bank'
-
-from .meta import Config
-from .systems import FeatureSystem
-
-__all__ = ['Config', 'FeatureSystem', 'add_config', 'make_features']
 
 
 def add_config(filename):
