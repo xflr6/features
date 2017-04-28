@@ -62,5 +62,6 @@ with a subclass that implements your wanted features:
     >>> myfs('1 -pl').features
     ['+1', '-2', '-pl']
 
-.. _documentation: http://graphviz.readthedocs.io
-.. _Python graphviz interface: http://pypi.python.org/pypi/graphviz
+
+.. _documentation: https://graphviz.readthedocs.io
+.. _Python graphviz interface: https://pypi.python.org/pypi/graphviz

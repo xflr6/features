@@ -10,7 +10,7 @@ setup(
     description='Feature set algebra for linguistics',
     keywords='lattice morphology phonology learning fca',
     license='MIT',
-    url='http://github.com/xflr6/features',
+    url='https://github.com/xflr6/features',
     packages=find_packages(),
     package_data={'features': ['config.ini']},
     zip_safe=False,

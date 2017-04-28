@@ -422,15 +422,15 @@ Logical relations between feature pairs (excluding orthogonal pairs):
     -high  subcontrary  -low
 
 
-.. _available from PyPI: http://pypi.python.org/pypi/features
+.. _available from PyPI: https://pypi.python.org/pypi/features
 
-.. _pip: http://pip.readthedocs.io
-.. _virtualenv: http://virtualenv.pypa.io
+.. _pip: https://pip.readthedocs.io
+.. _virtualenv: https://virtualenv.pypa.io
 
 .. _Graphviz graph layout software: http://www.graphviz.org
-.. _Formal Concept Analysis: http://en.wikipedia.org/wiki/Formal_concept_analysis
+.. _Formal Concept Analysis: https://en.wikipedia.org/wiki/Formal_concept_analysis
 
-.. _concepts: http://pypi.python.org/pypi/concepts
-.. _concepts docs: http://concepts.readthedocs.io
-.. _fileconfig: http://pypi.python.org/pypi/fileconfig
-.. _graphviz: http://pypi.python.org/pypi/graphviz
+.. _concepts: https://pypi.python.org/pypi/concepts
+.. _concepts docs: https://concepts.readthedocs.io
+.. _fileconfig: https://pypi.python.org/pypi/fileconfig
+.. _graphviz: https://pypi.python.org/pypi/graphviz

@@ -120,4 +120,4 @@ Show the **common features** for all word forms, computed with the
 Their **necessary conditions** (common features).
 
 
-.. _least upper bound: http://en.wikipedia.org/wiki/Join_and_meet
+.. _least upper bound: https://en.wikipedia.org/wiki/Join_and_meet

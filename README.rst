@@ -30,12 +30,12 @@ relations** using the `Graphviz graph layout software`_.
 Links
 -----
 
-- GitHub: http://github.com/xflr6/features
-- PyPI: http://pypi.python.org/pypi/features
-- Documentation: http://features.readthedocs.io
-- Changelog: http://features.readthedocs.io/en/latest/changelog.html
-- Issue Tracker: http://github.com/xflr6/features/issues
-- Download: http://pypi.python.org/pypi/features#downloads
+- GitHub: https://github.com/xflr6/features
+- PyPI: https://pypi.python.org/pypi/features
+- Documentation: https://features.readthedocs.io
+- Changelog: https://features.readthedocs.io/en/latest/changelog.html
+- Issue Tracker: https://github.com/xflr6/features/issues
+- Download: https://pypi.python.org/pypi/features#downloads
 
 
 Installation
@@ -136,8 +136,8 @@ See `the docs`_ on how to define, load, and use **your own feature systems**.
 Further reading
 ---------------
 
-- http://en.wikipedia.org/wiki/Join_and_meet
-- http://en.wikipedia.org/wiki/Formal_concept_analysis
+- https://en.wikipedia.org/wiki/Join_and_meet
+- https://en.wikipedia.org/wiki/Formal_concept_analysis
 - http://www.upriss.org.uk/fca/
 
 
@@ -155,21 +155,21 @@ License
 Features is distributed under the `MIT license`_.
 
 
-.. _pip: http://pip.readthedocs.io
+.. _pip: https://pip.readthedocs.io
 
 .. _Graphviz graph layout software: http://www.graphviz.org
-.. _Formal Concept Analysis: http://en.wikipedia.org/wiki/Formal_concept_analysis
-.. _source repository: http://github.com/xflr6/features/blob/master/features/config.ini
-.. _logical connectives: http://en.wikipedia.org/wiki/Template:Logical_connectives_table_and_Hasse_diagram
-.. _lattice: http://en.wikipedia.org/wiki/Lattice_(order)
-.. _Hasse graph: http://en.wikipedia.org/wiki/Hasse_diagram
-.. _the docs: http://features.readthedocs.io/en/latest/manual.html
+.. _Formal Concept Analysis: https://en.wikipedia.org/wiki/Formal_concept_analysis
+.. _source repository: https://github.com/xflr6/features/blob/master/features/config.ini
+.. _logical connectives: https://en.wikipedia.org/wiki/Template:Logical_connectives_table_and_Hasse_diagram
+.. _lattice: https://en.wikipedia.org/wiki/Lattice_(order)
+.. _Hasse graph: https://en.wikipedia.org/wiki/Hasse_diagram
+.. _the docs: https://features.readthedocs.io/en/latest/manual.html
 
-.. _concepts: http://pypi.python.org/pypi/concepts
-.. _fileconfig: http://pypi.python.org/pypi/fileconfig
-.. _graphviz: http://pypi.python.org/pypi/graphviz
+.. _concepts: https://pypi.python.org/pypi/concepts
+.. _fileconfig: https://pypi.python.org/pypi/fileconfig
+.. _graphviz: https://pypi.python.org/pypi/graphviz
 
-.. _MIT license: http://opensource.org/licenses/MIT
+.. _MIT license: https://opensource.org/licenses/MIT
 
 
 .. |--| unicode:: U+2013
