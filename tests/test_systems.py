@@ -1,57 +1,48 @@
 # test_systems.py
 
-import unittest
-
 import pickle
 
-from features.systems import FeatureSystem
+import pytest
+
 from features.meta import Config
+from features.systems import FeatureSystem
 
 
-class TestFeatureSystem(unittest.TestCase):
+def test_init_inatomic():
+    config = Config.create(context='''
+        |catholic|protestant|
+    spam|    X   |          |
+    eggs|    X   |          |
+    ham |        |     X    |
+    ''')
+    with pytest.raises(ValueError) as e:
+        FeatureSystem(config)
+    e.match(r'individual')
 
-    @classmethod
-    def setUpClass(cls):
-        cls.fs = FeatureSystem('plural')
-        config = Config.create(context=cls.fs._config.context)
-        cls.fs_noname = FeatureSystem(config)
 
-    @classmethod
-    def tearDownClass(cls):
-        del cls.fs
-        del cls.fs_noname
+def test_init_substrings():
+    config = Config.create(context='''
+        |egg|eggs|
+    spam| X |    |
+    ham |   | X  |
+    ''')
+    with pytest.raises(ValueError) as e:
+        FeatureSystem(config)
+    e.match('substring')
 
-    def test_init_inatomic(self):
-        config = Config.create(context='''
-            |catholic|protestant|
-        spam|    X   |          |
-        eggs|    X   |          |
-        ham |        |     X    |
-        ''')
-        with self.assertRaisesRegexp(ValueError, 'individual'):
-            FeatureSystem(config)
 
-    def test_init_substrings(self):
-        config = Config.create(context='''
-            |egg|eggs|
-        spam| X |    |
-        ham |   | X  |
-        ''')
-        with self.assertRaisesRegexp(ValueError, 'substring'):
-            FeatureSystem(config)
+def test_pickle_instance(fs):
+    assert pickle.loads(pickle.dumps(fs)) is fs
 
-    def test_pickle_instance(self):
-        self.assertIs(pickle.loads(pickle.dumps(self.fs)), self.fs)
 
-    def test_pickle_instance_noname(self):
-        self.assertIsInstance(pickle.loads(pickle.dumps(self.fs_noname)),
-            FeatureSystem)
+def test_pickle_instance_noname(fs_noname):
+    assert isinstance(pickle.loads(pickle.dumps(fs_noname)), FeatureSystem)
 
-    def test_downset_union(self):
-        self.assertEqual(list(self.fs.downset_union(
-            [self.fs('1sg'), self.fs('+1'), self.fs('+sg')])),
-            [self.fs('+sg'), self.fs('+1'),
-             self.fs('-3 +sg'), self.fs('-2 +sg'), self.fs('-1 +sg'),
-             self.fs('+1 +sg'), self.fs('+1 +pl'),
-             self.fs('+2 +sg'), self.fs('+3 +sg'),
-             self.fs.infimum])
+
+def test_downset_union(fs):
+    assert list(fs.downset_union([fs('1sg'), fs('+1'), fs('+sg')])) == \
+        [fs('+sg'), fs('+1'),
+         fs('-3 +sg'), fs('-2 +sg'), fs('-1 +sg'),
+         fs('+1 +sg'), fs('+1 +pl'),
+         fs('+2 +sg'), fs('+3 +sg'),
+         fs.infimum]
