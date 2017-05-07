@@ -3,6 +3,8 @@ Features
 
 |PyPI version| |License| |Supported Python| |Format| |Docs|
 
+|Travis| |Coveralls|
+
 Features is a simple implementation of **feature set algebra** in Python.
 
 Linguistic analyses commonly use sets of **binary or privative features** to
@@ -193,3 +195,9 @@ Features is distributed under the `MIT license`_.
 .. |Docs| image:: https://readthedocs.org/projects/features/badge/?version=latest
     :target: https://features.readthedocs.io/en/latest/
     :alt: Readthedocs
+.. |Travis| image:: https://img.shields.io/travis/xflr6/features.svg
+   :target: https://travis-ci.org/xflr6/features
+   :alt: Travis
+.. |Coveralls| image:: https://img.shields.io/coveralls/xflr6/features.svg
+   :target: https://coveralls.io/github/xflr6/features
+   :alt: Coveralls
