@@ -2,10 +2,12 @@ Changelog
 =========
 
 
-Version 0.5.6 (in development)
-------------------------------
+Version 0.5.6
+-------------
 
+Port tests from nose/unittest to pytest, add Travis CI and coveralls.
 
+Update meta data, tag Python 3.6 support.
 
 
 Version 0.5.5
