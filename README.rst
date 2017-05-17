@@ -192,8 +192,8 @@ Features is distributed under the `MIT license`_.
 .. |Downloads| image:: https://img.shields.io/pypi/dm/features.svg
     :target: https://pypi.python.org/pypi/features
     :alt: Downloads
-.. |Docs| image:: https://readthedocs.org/projects/features/badge/?version=latest
-    :target: https://features.readthedocs.io/en/latest/
+.. |Docs| image:: https://readthedocs.org/projects/features/badge/?version=stable
+    :target: https://features.readthedocs.io/en/stable/
     :alt: Readthedocs
 .. |Travis| image:: https://img.shields.io/travis/xflr6/features.svg
    :target: https://travis-ci.org/xflr6/features
