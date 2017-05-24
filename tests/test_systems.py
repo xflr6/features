@@ -15,9 +15,8 @@ def test_init_inatomic():
     eggs|    X   |          |
     ham |        |     X    |
     ''')
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(ValueError, match=r'individual'):
         FeatureSystem(config)
-    e.match(r'individual')
 
 
 def test_init_substrings():
@@ -26,9 +25,8 @@ def test_init_substrings():
     spam| X |    |
     ham |   | X  |
     ''')
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(ValueError, match=r'substring'):
         FeatureSystem(config)
-    e.match('substring')
 
 
 def test_pickle_instance(fs):

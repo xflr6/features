@@ -3,7 +3,7 @@ concepts==0.7.11
 fileconfig==0.5.4
 graphviz==0.7.1
 # dependencies for testing and building
-pytest>=3
+pytest>=3.1
 pytest-cov
 coverage
 flake8

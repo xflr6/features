@@ -165,7 +165,7 @@ Features is distributed under the `MIT license`_.
 .. _logical connectives: https://en.wikipedia.org/wiki/Template:Logical_connectives_table_and_Hasse_diagram
 .. _lattice: https://en.wikipedia.org/wiki/Lattice_(order)
 .. _Hasse graph: https://en.wikipedia.org/wiki/Hasse_diagram
-.. _the docs: https://features.readthedocs.io/en/latest/manual.html
+.. _the docs: https://features.readthedocs.io/en/stable/manual.html
 
 .. _concepts: https://pypi.python.org/pypi/concepts
 .. _fileconfig: https://pypi.python.org/pypi/fileconfig
