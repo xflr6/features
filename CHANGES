@@ -2,10 +2,10 @@ Changelog
 =========
 
 
-Version 0.5.7 (in development)
-------------------------------
+Version 0.5.7
+-------------
 
-
+Fix pep-0479 StopIteration DeprecationWarning under Python 3.5+
 
 
 Version 0.5.6
