@@ -31,7 +31,10 @@ def butlast(iterable):
     []
     """
     iterable = iter(iterable)
-    first = next(iterable)
+    try:
+        first = next(iterable)
+    except StopIteration:
+        return
     for second in iterable:
         yield first
         first = second
