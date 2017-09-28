@@ -8,7 +8,7 @@ Installation
 ------------
 
 :mod:`features` is a pure-python package implementing **feature set algebra**
-as commonly used in linguistics. It runs under both Python 2.7 and 3.3+ and is
+as commonly used in linguistics. It runs under both Python 2.7 and 3.4+ and is
 `available from PyPI`_. To install it using pip_, run the following command:
 
 .. code:: bash
@@ -17,7 +17,7 @@ as commonly used in linguistics. It runs under both Python 2.7 and 3.3+ and is
 
 For a system-wide install, this typically requires administrator access. For an
 isolated installation, you can run the same inside a virtualenv_ or a
-:mod:`py3:venv` (Python 3.3+ only).
+:mod:`py3:venv` (Python 3 only).
 
 The pip-command will automatically download and install the (pure-python)
 fileconfig_ and concepts_ packages (plus dependencies) from PyPI. The latter
