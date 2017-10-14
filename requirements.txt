@@ -1,11 +1,11 @@
 # exact dependency versions used in development
-concepts==0.7.11
-fileconfig==0.5.5
-graphviz==0.8
+concepts==0.7.12
+fileconfig==0.5.6
+graphviz==0.8.1
 # dependencies for testing and building
 pytest>=3.1
 pytest-cov
-coverage
 flake8
 pep8-naming
 wheel
+twine
