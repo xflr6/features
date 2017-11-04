@@ -103,11 +103,11 @@ class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
     """
 
     def __init__(self, concept):
-        self.concept = concept
-        self.index = concept.index
-        self.string = ' '.join(concept.minimal())
-        self.string_maximal = ' '.join(concept.intent)
-        self.string_extent = ' '.join(concept.extent)
+        self.concept = concept  #: The corresponding FCA concept.
+        self.index = concept.index  #: The position of the feature set with its system.
+        self.string = ' '.join(concept.minimal())  #: Space-concatenated minimal features.
+        self.string_maximal = ' '.join(concept.intent)  #: All features space-concatenated.
+        self.string_extent = ' '.join(concept.extent)  #: Space-concatenated extent labels.
 
     def __repr__(self):
         return '%s(%r)' % (self.__class__.__name__, self.string)
@@ -118,11 +118,11 @@ class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
         return self.system.__class__, (self.system.key, self.string)
 
     def __str__(self):
-        """Concise string representation."""
+        """Return the concise string representation."""
         return '[%s]' % self.string
 
     def __strmax__(self):
-        """Verbose string representation."""
+        """Return the verbose string representation."""
         return '[%s]' % self.string_maximal
 
     def __bool__(self):
@@ -131,61 +131,61 @@ class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
 
     @property
     def atoms(self):
-        """Subsumed atoms."""
+        """The subsumed atoms."""
         indexes = (c.index for c in self.concept.atoms)
         return list(map(self._sibling, indexes))
 
     @property
     def upper_neighbors(self):
-        """Immediate implied neighbors."""
+        """The directly implied neighbors."""
         indexes = (c.index for c in self.concept.upper_neighbors)
         return list(map(self._sibling, indexes))
 
     @property
     def lower_neighbors(self):
-        """Immediate subsumed neighbors."""
+        """The directly subsumed neighbors."""
         indexes = (c.index for c in self.concept.lower_neighbors)
         return list(map(self._sibling, indexes))
 
     def upset(self):
-        """Implied neighbors."""
+        """Return the list of implied neighbors (including self)."""
         indexes = (c.index for c in self.concept.upset())
         return list(map(self._sibling, indexes))
 
     def downset(self):
-        """Subsumed neighbors."""
+        """Return the list of subsumed neighbors (including self)."""
         indexes = (c.index for c in self.concept.downset())
         return list(map(self._sibling, indexes))
 
     def subsumes(self, other):
-        """Submsumption."""
+        """Submsumption comparison."""
         return self.concept.subsumes(other.concept)
 
     def implies(self, other):
-        """Implication."""
+        """Implication comparison."""
         return self.concept.implies(other.concept)
 
     __le__ = subsumes
     __ge__ = implies
 
     def properly_subsumes(self, other):
-        """Proper subsumption."""
+        """Proper subsumption comparison."""
         return self.concept.properly_subsumes(other.concept)
 
     def properly_implies(self, other):
-        """Proper implication."""
+        """Proper implication comparison."""
         return self.concept.properly_implies(other.concept)
 
     __lt__ = properly_subsumes
     __gt__ = properly_implies
 
     def intersection(self, other):
-        """Closest implied neighbor (generalization, join)."""
+        """Return the closest implied neighbor (generalization, join)."""
         join = self.concept.join(other.concept)
         return self._sibling(join.index)
 
     def union(self, other):
-        """Closest subsumed neighbor (unification, meet)."""
+        """Return the closest subsumed neighbor (unification, meet)."""
         meet = self.concept.meet(other.concept)
         return self._sibling(meet.index)
 
@@ -193,19 +193,19 @@ class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
     __xor__ = union
 
     def incompatible_with(self, other):
-        """Empty common extent."""
+        """Empty common extent comparison."""
         return self.concept.incompatible_with(other.concept)
 
     def complement_of(self, other):
-        """Empty common extent and universal extent union."""
+        """Empty common extent and universal extent union comparison."""
         return self.concept.complement_of(other.concept)
 
     def subcontrary_with(self, other):
-        """Nonempty common extent and universal extent union."""
+        """Nonempty common extent and universal extent union comparison."""
         return self.concept.subcontrary_with(other.concept)
 
     def orthogonal_to(self, other):
-        """Nonempty common extent, incomparable, nonempty extent union."""
+        """Nonempty common extent, incomparable, nonempty extent union comparison."""
         return self.concept.orthogonal_to(other.concept)
 
     # internal interface used by cases

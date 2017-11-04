@@ -101,10 +101,10 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
             raise ValueError('context does not allow to refer '
                 'to each individual object: %r' % context)
 
-        self.key = config.key
-        self.description = config.description
-        self.context = context
-        self.lattice = context.lattice
+        self.key = config.key  #: The unique name of the feature system.
+        self.description = config.description  #: A description of the feature system.
+        self.context = context  #: The FCA context defining the feature system.
+        self.lattice = context.lattice  #: The corresponding FCA lattice of the feature system.
         self.parse = parsers.Parser(context.properties)
 
         base = self.FeatureSet
@@ -117,8 +117,8 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         cls._sibling = featuresets.__getitem__
 
         self.FeatureSet = cls
-        self.infimum = featuresets[0]
-        self.supremum = featuresets[-1]
+        self.infimum = featuresets[0]  #: The systems most specific feature set.
+        self.supremum = featuresets[-1]  #: The systems most general feature set.
 
     def __call__(self, string=''):
         """Idempotently return featureset from parsed feature string."""
@@ -137,15 +137,19 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         return result
 
     def __getitem__(self, index):
+        """Return the feature set with the given index."""
         return self._featuresets[index]
 
     def __iter__(self):
+        """Yield all feature sets."""
         return iter(self._featuresets)
 
     def __len__(self):
+        """Return the number of feature sets."""
         return len(self._featuresets)
 
     def __contains__(self, featureset):
+        """Test for feature set membership."""
         return featureset in self._featuresets
 
     def __str__(self):
@@ -170,7 +174,7 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
 
     @property
     def atoms(self):
-        """Minimal non-infimum feature sets."""
+        """The systems Minimal non-infimum feature sets."""
         return self.infimum.upper_neighbors
 
     def join(self, featuresets):

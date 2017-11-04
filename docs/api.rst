@@ -13,6 +13,8 @@ FeatureSystem
 
 .. autoclass:: features.FeatureSystem
     :members:
+        key, description, context, lattice,
+        infimum, supremum,
         __call__, __getitem__, __iter__, __len__, __contains__,
         atoms,
         join, meet,
@@ -25,6 +27,7 @@ FeatureSet
 
 .. autoclass:: features.bases.FeatureSet
     :members:
+        concept, index, string, string_maximal, string_extent,
         atoms,
         upper_neighbors, lower_neighbors,
         upset, downset,
