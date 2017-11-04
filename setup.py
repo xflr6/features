@@ -15,9 +15,9 @@ setup(
     package_data={'features': ['config.ini']},
     zip_safe=False,
     install_requires=[
-        'concepts>=0.7, <1.0',
-        'fileconfig>=0.5, <1.0',
-        'graphviz>=0.3, <1.0',
+        'concepts~=0.7',
+        'fileconfig~=0.5',
+        'graphviz~=0.7',
     ],
     platforms='any',
     long_description=open('README.rst').read(),
