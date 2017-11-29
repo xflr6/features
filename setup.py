@@ -14,12 +14,17 @@ setup(
     packages=find_packages(),
     package_data={'features': ['config.ini']},
     zip_safe=False,
+    platforms='any',
+    python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
     install_requires=[
         'concepts~=0.7',
         'fileconfig~=0.5',
         'graphviz~=0.7',
     ],
-    platforms='any',
+    extras_require={
+        'dev': ['flake8', 'pep8-naming', 'wheel', 'twine'],
+        'test': ['pytest>=3.3', 'pytest-cov'],
+    },
     long_description=open('README.rst').read(),
     classifiers=[
         'Development Status :: 4 - Beta',
