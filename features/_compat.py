@@ -5,7 +5,7 @@ import sys
 PY2 = sys.version_info[0] == 2
 
 
-if PY2:  # pragma: no cover
+if PY2:
     string_types = basestring
 
     from itertools import imap as map, izip as zip
@@ -21,7 +21,7 @@ if PY2:  # pragma: no cover
     import copy_reg as copyreg
 
 
-else:  # pragma: no cover
+else:
     string_types = str
 
     map, zip = map, zip
