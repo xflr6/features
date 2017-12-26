@@ -15,9 +15,6 @@ if PY2:
         del cls.__bool__
         return cls
 
-    def py3_unicode_to_str(cls):
-        return cls
-
     import copy_reg as copyreg
 
 
@@ -25,11 +22,6 @@ else:
     string_types = str
 
     map, zip = map, zip
-
-    def py3_unicode_to_str(cls):
-        cls.__str__ = cls.__unicode__
-        del cls.__unicode__
-        return cls
 
     def py2_bool_to_nonzero(cls):
         return cls

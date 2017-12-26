@@ -74,7 +74,8 @@ def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, re
     return dot
 
 
-def render_all(maximal_label=MAXIMAL_LABEL, topdown=TOPDOWN, directory=DIRECTORY, format=None):
+def render_all(maximal_label=MAXIMAL_LABEL, topdown=TOPDOWN,
+               directory=DIRECTORY, format=None):  # pragma: no cover
     from features.systems import FeatureSystem
     from features.meta import Config
 
