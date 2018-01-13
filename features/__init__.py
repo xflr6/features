@@ -10,7 +10,7 @@ __all__ = ['Config', 'FeatureSystem', 'add_config', 'make_features']
 __title__ = 'features'
 __version__ = '0.5.9.dev0'
 __author__ = 'Sebastian Bank <sebastian.bank@uni-leipzig.de>'
-__license__ = 'MIT, see LICENSE'
+__license__ = 'MIT, see LICENSE.txt'
 __copyright__ = 'Copyright (c) 2014-2017 Sebastian Bank'
 
 

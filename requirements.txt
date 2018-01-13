@@ -1,5 +1,5 @@
 # development environment: install in development mode
--e .[dev,test]
+-e .[dev,test,docs]
 # exact dependency versions used in development
 concepts==0.7.12
 fileconfig==0.5.6
