@@ -19,7 +19,7 @@ def uniqued(iterable):
 
 
 def butlast(iterable):
-    """Yield all items from iterable except the last one.
+    """Yield all items from ``iterable`` except the last one.
 
     >>> list(butlast(['spam', 'eggs', 'ham']))
     ['spam', 'eggs']

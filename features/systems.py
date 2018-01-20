@@ -121,7 +121,7 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         self.supremum = featuresets[-1]  #: The systems most general feature set.
 
     def __call__(self, string=''):
-        """Idempotently return featureset from parsed feature string."""
+        """Idempotently return featureset from parsed feature ``string``."""
         if isinstance(string, string_types):
             features = self.parse(string)
         elif isinstance(string, self.FeatureSet):
@@ -137,7 +137,7 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         return result
 
     def __getitem__(self, index):
-        """Return the feature set with the given index."""
+        """Return the feature set with the given ``index``."""
         return self._featuresets[index]
 
     def __iter__(self):
@@ -148,9 +148,9 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         """Return the number of feature sets."""
         return len(self._featuresets)
 
-    def __contains__(self, featureset):
+    def __contains__(self, other):
         """Test for feature set membership."""
-        return featureset in self._featuresets
+        return other in self._featuresets
 
     def __str__(self):
         description = '\n%r' % self.description if self.description else ''

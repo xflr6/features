@@ -21,7 +21,7 @@ def add_config(filename):
         filename: Path to the INI-file with feature system definitions.
 
     Note:
-        If `filename` is a relative path, it is resolved relative to the
+        If ``filename`` is a relative path, it is resolved relative to the
         directory of the caller (which may be different from the current working
         dicrectry).
     """
@@ -32,9 +32,9 @@ def make_features(context, frmat='table', str_maximal=False):
     """Return a new feature system from context string in the given format.
 
     Args:
-        context: Formal context table as plain-text string.
-        frmat: Format of the context string ('table', 'cxt', 'csv').
-        str_maximal(bool):
+        context (str): Formal context table as plain-text string.
+        frmat: Format of the context string (``'table'``, ``'cxt'``, ``'csv'``).
+        str_maximal (bool):
 
     Example:
         >>> make_features('''

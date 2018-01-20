@@ -46,7 +46,7 @@ To load a feature system, pass its **name** to :class:`features.FeatureSystem`:
     <FeatureSystem('plural') of 6 atoms 22 featuresets>
 
 The built-in feature systems are defined in the ``config.ini`` file in the
-package directory (usually, this will be ``Lib/site-packages/concepts`` in your
+package directory (usually, this will be ``Lib/site-packages/concepts/`` in your
 Python directory). You can either directly define new systems within a Python
 script or create your own INI-file(s) with definitions so that you can load 
 and reuse feature systems in different scripts.

@@ -3,6 +3,16 @@
 API Reference
 =============
 
+.. autosummary::
+    :nosignatures:
+
+    ~features.add_config
+    ~features.make_features
+    ~features.FeatureSystem
+    features.bases.FeatureSet
+    features.Config
+
+
 .. autofunction:: features.add_config
 
 .. autofunction:: features.make_features

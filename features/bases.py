@@ -126,7 +126,7 @@ class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
         return '[%s]' % self.string_maximal
 
     def __bool__(self):
-        """Return True iff the set has features."""
+        """Return ``True`` iff the set has features."""
         return self is not self.system.supremum
 
     @property
