@@ -33,11 +33,11 @@ Links
 -----
 
 - GitHub: https://github.com/xflr6/features
-- PyPI: https://pypi.python.org/pypi/features
+- PyPI: https://pypi.org/project/features/
 - Documentation: https://features.readthedocs.io
 - Changelog: https://features.readthedocs.io/en/latest/changelog.html
 - Issue Tracker: https://github.com/xflr6/features/issues
-- Download: https://pypi.python.org/pypi/features#downloads
+- Download: https://pypi.org/project/features/#files
 
 
 Installation
@@ -167,9 +167,9 @@ Features is distributed under the `MIT license`_.
 .. _Hasse graph: https://en.wikipedia.org/wiki/Hasse_diagram
 .. _the docs: https://features.readthedocs.io/en/stable/manual.html
 
-.. _concepts: https://pypi.python.org/pypi/concepts
-.. _fileconfig: https://pypi.python.org/pypi/fileconfig
-.. _graphviz: https://pypi.python.org/pypi/graphviz
+.. _concepts: https://pypi.org/project/concepts/
+.. _fileconfig: https://pypi.org/project/fileconfig/
+.. _graphviz: https://pypi.org/project/graphviz/
 
 .. _MIT license: https://opensource.org/licenses/MIT
 
@@ -178,20 +178,17 @@ Features is distributed under the `MIT license`_.
 
 
 .. |PyPI version| image:: https://img.shields.io/pypi/v/features.svg
-    :target: https://pypi.python.org/pypi/features
+    :target: https://pypi.org/project/features/
     :alt: Latest PyPI Version
 .. |License| image:: https://img.shields.io/pypi/l/features.svg
-    :target: https://pypi.python.org/pypi/features
+    :target: https://pypi.org/project/features/
     :alt: License
 .. |Supported Python| image:: https://img.shields.io/pypi/pyversions/features.svg
-    :target: https://pypi.python.org/pypi/features
+    :target: https://pypi.org/project/features/
     :alt: Supported Python Versions
 .. |Format| image:: https://img.shields.io/pypi/format/features.svg
-    :target: https://pypi.python.org/pypi/features
+    :target: https://pypi.org/project/features/
     :alt: Format
-.. |Downloads| image:: https://img.shields.io/pypi/dm/features.svg
-    :target: https://pypi.python.org/pypi/features
-    :alt: Downloads
 .. |Docs| image:: https://readthedocs.org/projects/features/badge/?version=stable
     :target: https://features.readthedocs.io/en/stable/
     :alt: Readthedocs

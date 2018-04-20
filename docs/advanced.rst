@@ -64,4 +64,4 @@ with a subclass that implements your wanted features:
 
 
 .. _documentation: https://graphviz.readthedocs.io
-.. _Python graphviz interface: https://pypi.python.org/pypi/graphviz
+.. _Python graphviz interface: https://pypi.org/project/graphviz/
