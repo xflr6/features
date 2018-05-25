@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-Version 0.5.9 (in development)
-------------------------------
+Version 0.5.9
+-------------
 
 Increase API docs coverage.
 

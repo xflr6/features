@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='features',
-    version='0.5.9.dev0',
+    version='0.5.9',
     author='Sebastian Bank',
     author_email='sebastian.bank@uni-leipzig.de',
     description='Feature set algebra for linguistics',
