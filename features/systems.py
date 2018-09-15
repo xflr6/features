@@ -120,7 +120,7 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         self.infimum = featuresets[0]  #: The systems most specific feature set.
         self.supremum = featuresets[-1]  #: The systems most general feature set.
 
-    def __call__(self, string=''):
+    def __call__(self, string='', allow_invalid=False):
         """Idempotently return featureset from parsed feature ``string``."""
         if isinstance(string, string_types):
             features = self.parse(string)
@@ -132,7 +132,7 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         concept = self.lattice(features)
         result = self._featuresets[concept.index]
 
-        if result is self.infimum:
+        if result is self.infimum and not allow_invalid:
             raise ValueError('%r (%s) is not a valid feature set in %r.' % (string, features, self))
         return result
 
