@@ -1,6 +1,9 @@
 # test_bases.py
 
+import sys
 import pickle
+
+import pytest
 
 from features.bases import FeatureSet
 
@@ -15,8 +18,8 @@ def test_pickle_class(fs):
 
 def test_pickle_class_noname(fs_noname):
     pickle.loads(pickle.dumps(fs_noname.FeatureSet))
-    # TODO
-    assert True or isinstance(pickle.loads(pickle.dumps(fs_noname.FeatureSet)), FeatureSet)
+    pytest.xfail(reason='TODO')
+    assert isinstance(pickle.loads(pickle.dumps(fs_noname.FeatureSet)), FeatureSet)
 
 
 def test_pickle_instance(fs):
@@ -27,37 +30,48 @@ def test_pickle_instance_noname(fs_noname):
     assert isinstance(pickle.loads(pickle.dumps(fs_noname('1'))), FeatureSet)
 
 
-def test_upper_neighbors_nonsup(fs):
-    assert fs('1sg')._upper_neighbors_nonsup() == [fs('+1'), fs('-3 +sg'), fs('-2 +sg')]
+@pytest.mark.parametrize('features, expected',[
+    ('1sg', ['+1', '-3 +sg', '-2 +sg']),
+])
+def test_upper_neighbors_nonsup(fs, features, expected):
+    features, expected = fs(features), [fs(e) for e in expected]
+    assert features._upper_neighbors_nonsup() == expected
 
 
-def test_upper_neighbors_union_nonsup(fs):
-    # TODO
-    assert True or list(fs('1sg')._upper_neighbors_union_nonsup(fs('1sg'))) == \
-        [fs('+1'), fs('-3 +sg'), fs('-2 +sg')]
-    assert list(fs('1sg')._upper_neighbors_union_nonsup(fs('1'))) == \
-        [fs('+1'), fs('-3 +sg'), fs('-2 +sg')]
-    assert list(fs('1')._upper_neighbors_union_nonsup(fs('1sg'))) == \
-        [fs('+1'), fs('-3 +sg'), fs('-2 +sg')]
-    # TODO
-    assert True or list(fs('1sg')._upper_neighbors_union_nonsup(fs('1pl'))) == \
-        [fs('-3 +sg'), fs('-2 +sg'),
-         fs('-3 +pl'), fs('-2 +pl'),
-         fs('+1')]
+@pytest.mark.parametrize('features, other, expected', [
+     pytest.param('1sg', '1sg', ['+1', '-3 +sg', '-2 +sg'],
+                  marks=pytest.mark.xfail(reason='TODO: fix order')),
+    ('1sg', '1', ['+1', '-3 +sg', '-2 +sg']),
+    ('1', '1sg', ['+1', '-3 +sg', '-2 +sg']),
+    pytest.param('1sg', '1pl', ['-3 +sg', '-2 +sg', '-3 +pl', '-2 +pl', '+1'],
+                 marks=pytest.mark.xfail(sys.version_info.major == 3,
+                                         reason='TODO: fix order')),
+])
+def test_upper_neighbors_union_nonsup(fs, features, other, expected):
+    features, other = (fs(f) for f in (features, other))
+    expected = [fs(e) for e in expected]
+    assert list(features._upper_neighbors_union_nonsup(other)) == expected
 
 
-def test_upset_nonsup(fs):
-    assert list(fs('1sg')._upset_nonsup()) == \
-        [fs('+1 +sg'),
-         fs('+1'), fs('-3 +sg'), fs('-2 +sg'),
-         fs('+sg'), fs('-3'), fs('-2')]
+@pytest.mark.parametrize('features, expected', [
+    ('1sg', ['+1 +sg',
+             '+1', '-3 +sg', '-2 +sg',
+             '+sg', '-3', '-2']),
+])
+def test_upset_nonsup(fs, features, expected):
+    features, expected = fs(features), [fs(e) for e in expected]
+    assert list(features._upset_nonsup()) == expected
 
 
-def test_upset_union_nonsup(fs):
-    assert list(fs('1sg')._upset_union_nonsup(fs('1pl'))) == \
-        [fs('+1 +sg'), fs('+1 +pl'),
-         fs('+1'),
-         fs('-3 +sg'), fs('-2 +sg'),
-         fs('-3 +pl'), fs('-2 +pl'),
-         fs('+sg'), fs('+pl'),
-         fs('-3'), fs('-2')]
+@pytest.mark.parametrize('features, other, expected', [
+    ('1sg', '1pl', ['+1 +sg', '+1 +pl',
+                    '+1',
+                    '-3 +sg', '-2 +sg',
+                    '-3 +pl', '-2 +pl',
+                    '+sg', '+pl',
+                    '-3', '-2']),
+])
+def test_upset_union_nonsup(fs, features, other, expected):
+    features, other = (fs(f) for f in (features, other))
+    expected = [fs(e) for e in expected]
+    assert list(features._upset_union_nonsup(other)) == expected
