@@ -3,4 +3,4 @@
 # exact dependency versions used in development
 concepts==0.7.13
 fileconfig==0.5.7
-graphviz==0.8.3
+graphviz==0.10.1
