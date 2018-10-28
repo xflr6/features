@@ -30,7 +30,7 @@ def test_pickle_instance_noname(fs_noname):
     assert isinstance(pickle.loads(pickle.dumps(fs_noname('1'))), FeatureSet)
 
 
-@pytest.mark.parametrize('features, expected',[
+@pytest.mark.parametrize('features, expected', [
     ('1sg', ['+1', '-3 +sg', '-2 +sg']),
 ])
 def test_upper_neighbors_nonsup(fs, features, expected):
