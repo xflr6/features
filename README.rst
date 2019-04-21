@@ -67,7 +67,7 @@ six-way person/number distinction, cf. the definitions in the bundled
     >>> fs = features.FeatureSystem('plural')
 
     >>> print(fs.context)  # doctest: +ELLIPSIS
-    <Context object mapping 6 objects to 10 properties at 0x...>
+    <Context object mapping 6 objects to 10 properties [3011c283] at 0x...>
           |+1|-1|+2|-2|+3|-3|+sg|+pl|-sg|-pl|
         1s|X |  |  |X |  |X |X  |   |   |X  |
         1p|X |  |  |X |  |X |   |X  |X  |   |
