@@ -9,32 +9,36 @@ from features.systems import FeatureSystem
 
 
 def test_init_inatomic():
-    config = Config.create(context='''
+    context = '''
         |catholic|protestant|
     spam|    X   |          |
     eggs|    X   |          |
     ham |        |     X    |
-    ''')
+    '''
+    config = Config.create(context=context)
     with pytest.raises(ValueError, match=r'individual'):
         FeatureSystem(config)
 
 
 def test_init_substrings():
-    config = Config.create(context='''
+    context = '''
         |egg|eggs|
     spam| X |    |
     ham |   | X  |
-    ''')
+    '''
+    config = Config.create(context=context)
     with pytest.raises(ValueError, match=r'substring'):
         FeatureSystem(config)
 
 
 def test_pickle_instance(fs):
-    assert pickle.loads(pickle.dumps(fs)) is fs
+    inst = pickle.loads(pickle.dumps(fs))
+    assert inst is fs
 
 
 def test_pickle_instance_noname(fs_noname):
-    assert isinstance(pickle.loads(pickle.dumps(fs_noname)), FeatureSystem)
+    inst = pickle.loads(pickle.dumps(fs_noname))
+    assert isinstance(inst, FeatureSystem)
 
 
 @pytest.mark.parametrize('features, expected', [

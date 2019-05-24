@@ -9,32 +9,40 @@ from features.bases import FeatureSet
 
 
 def test_pickle_base(fs):
-    assert pickle.loads(pickle.dumps(fs.FeatureSet.__base__)) is fs.FeatureSet.__base__
+    base = pickle.loads(pickle.dumps(fs.FeatureSet.__base__))
+    assert base is fs.FeatureSet.__base__
 
 
 def test_pickle_class(fs):
-    assert pickle.loads(pickle.dumps(fs.FeatureSet)) is fs.FeatureSet
+    cls = pickle.loads(pickle.dumps(fs.FeatureSet))
+    assert cls is fs.FeatureSet
 
 
 def test_pickle_class_noname(fs_noname):
-    pickle.loads(pickle.dumps(fs_noname.FeatureSet))
+    cls = pickle.loads(pickle.dumps(fs_noname.FeatureSet))
+    assert issubclass(cls, FeatureSet)
     pytest.xfail(reason='TODO')
-    assert isinstance(pickle.loads(pickle.dumps(fs_noname.FeatureSet)), FeatureSet)
+    assert isinstance(cls, FeatureSet)
+    assert cls is fs_noname.FeatureSet
 
 
 def test_pickle_instance(fs):
+    assert fs('1') is fs('1')
     assert pickle.loads(pickle.dumps(fs('1'))) is fs('1')
 
 
 def test_pickle_instance_noname(fs_noname):
-    assert isinstance(pickle.loads(pickle.dumps(fs_noname('1'))), FeatureSet)
+    assert fs_noname('1') is fs_noname('1')
+    inst = pickle.loads(pickle.dumps(fs_noname('1')))
+    assert isinstance(inst, FeatureSet)
 
 
 @pytest.mark.parametrize('features, expected', [
     ('1sg', ['+1', '-3 +sg', '-2 +sg']),
 ])
 def test_upper_neighbors_nonsup(fs, features, expected):
-    features, expected = fs(features), [fs(e) for e in expected]
+    features = fs(features)
+    expected = [fs(e) for e in expected]
     assert features._upper_neighbors_nonsup() == expected
 
 
@@ -59,7 +67,8 @@ def test_upper_neighbors_union_nonsup(fs, features, other, expected):
              '+sg', '-3', '-2']),
 ])
 def test_upset_nonsup(fs, features, expected):
-    features, expected = fs(features), [fs(e) for e in expected]
+    features = fs(features)
+    expected = [fs(e) for e in expected]
     assert list(features._upset_nonsup()) == expected
 
 
