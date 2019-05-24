@@ -34,7 +34,7 @@ class FeatureSystemMeta(type):
 
     __map = {}
 
-    def __call__(self, config=DEFAULT, string=None):
+    def __call__(self, config=DEFAULT, string=None):  # noqa: N804
         if isinstance(config, self):
             return config
 
@@ -59,15 +59,15 @@ class FeatureSetMeta(type):
 
     system = None
 
-    def __call__(self, string=''):
+    def __call__(self, string=''):  # noqa: N804
         return self.system(string)
 
-    def __repr__(self):
+    def __repr__(self):  # noqa: N804
         if self.system is None:
             return type.__repr__(self)
         return '<class %r of %r>' % (self.__name__, self.system)
 
-    def __reduce__(self):
+    def __reduce__(self):  # noqa: N804
         if self.system is None:
             return self.__name__
         elif self.system.key is None:

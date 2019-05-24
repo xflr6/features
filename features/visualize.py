@@ -50,7 +50,7 @@ def featuresystem(fs, highlight, maximal_label, topdown,
             elif f is highlight:
                 return (('style', 'filled'), ('color', 'gray20'))
     else:
-        node_format = lambda f: None
+        node_format = lambda f: None  # noqa: E731
 
     node_name = NAME_GETTERS[0]
 
@@ -61,7 +61,7 @@ def featuresystem(fs, highlight, maximal_label, topdown,
     if not topdown:
         dot.edge_attr.update(dir='back')
 
-    sortkey = lambda f: f.index
+    sortkey = lambda f: f.index  # noqa: E731
 
     for f in fs._featuresets:
         name = node_name(f)
