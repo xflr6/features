@@ -39,8 +39,8 @@ def test_upper_neighbors_nonsup(fs, features, expected):
 
 
 @pytest.mark.parametrize('features, other, expected', [
-     pytest.param('1sg', '1sg', ['+1', '-3 +sg', '-2 +sg'],
-                  marks=pytest.mark.xfail(reason='TODO: fix order')),
+    pytest.param('1sg', '1sg', ['+1', '-3 +sg', '-2 +sg'],
+                 marks=pytest.mark.xfail(reason='TODO: fix order')),
     ('1sg', '1', ['+1', '-3 +sg', '-2 +sg']),
     ('1', '1sg', ['+1', '-3 +sg', '-2 +sg']),
     pytest.param('1sg', '1pl', ['-3 +sg', '-2 +sg', '-3 +pl', '-2 +pl', '+1'],
