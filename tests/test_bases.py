@@ -23,7 +23,7 @@ def test_pickle_class_noname(fs_noname):
 
 
 def test_pickle_instance(fs):
-    assert pickle.loads(pickle.dumps(fs('1'))), fs('1')
+    assert pickle.loads(pickle.dumps(fs('1'))) is fs('1')
 
 
 def test_pickle_instance_noname(fs_noname):
