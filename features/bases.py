@@ -210,7 +210,8 @@ class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
 
     # internal interface used by cases
     def _upper_neighbors_nonsup(self):
-        indexes = (c.index for c in self.concept.upper_neighbors if c.upper_neighbors)
+        indexes = (c.index for c in self.concept.upper_neighbors
+                   if c.upper_neighbors)
         return list(map(self._sibling, indexes))
 
     def _upper_neighbors_union_nonsup(self, other):
@@ -218,9 +219,9 @@ class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
             return iter(self.upper_neighbors)
         elif self.properly_subsumes(other):
             return iter(other.upper_neighbors)
-        indexes = set(c.index for c in
-            self.concept.upper_neighbors + other.concept.upper_neighbors
-            if c.upper_neighbors)
+
+        union = self.concept.upper_neighbors + other.concept.upper_neighbors
+        indexes = {c.index for c in union if c.upper_neighbors}
         return map(self._sibling, indexes)
 
     def _upset_nonsup(self):

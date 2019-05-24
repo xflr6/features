@@ -46,5 +46,6 @@ def make_features(context, frmat='table', str_maximal=False):
         ... ''')  # doctest: +ELLIPSIS
         <FeatureSystem object of 4 atoms 10 featuresets at 0x...>
     """
-    config = Config.create(context=context, format=frmat, str_maximal=str_maximal)
+    config = Config.create(context=context, format=frmat,
+                           str_maximal=str_maximal)
     return FeatureSystem(config)

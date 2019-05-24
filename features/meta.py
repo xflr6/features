@@ -16,16 +16,16 @@ class Config(fileconfig.Stacked):
 
     _encoding = 'utf-8-sig'
 
-    def __init__(self, key, context, format='table', aliases=None, inherits=None,
-                 str_maximal=False, description=None):
+    def __init__(self, key, context, format='table', aliases=None,
+                 inherits=None, str_maximal=False, description=None):
         self.key = key
         self.context = context.strip()
         self.format = format
         self.aliases = aliases if aliases is not None else []
         self.inherits = inherits
         self.str_maximal = (False if not str_maximal
-            else True if str_maximal is True
-            else str_maximal.lower() in ('1', 'yes', 'true', 'on'))
+                            else True if str_maximal is True
+                            else str_maximal.lower() in ('1', 'yes', 'true', 'on'))
         self.description = description.strip() if description is not None else ''
 
 

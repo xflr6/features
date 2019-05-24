@@ -20,7 +20,8 @@ LABEL_GETTERS = [
 NEIGHBORS_GETTERS = [lambda f: f.lower_neighbors, lambda f: f.upper_neighbors]
 
 
-def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, render, view, **kwargs):
+def featuresystem(fs, highlight, maximal_label, topdown,
+                  filename, directory, render, view, **kwargs):
     if maximal_label is None:
         maximal_label = MAXIMAL_LABEL
 
@@ -32,15 +33,13 @@ def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, re
     if filename is None:
         filename = 'fs-%s%s.gv' % (name, '-max' if maximal_label else '')
 
-    dot = graphviz.Digraph(
-        name=name,
-        comment=repr(fs),
-        filename=filename,
-        directory=directory,
-        graph_attr=dict(margin='0'),
-        edge_attr=dict(arrowtail='none', penwidth='.5'),
-        **kwargs
-    )
+    dot = graphviz.Digraph(name=name,
+                           comment=repr(fs),
+                           filename=filename,
+                           directory=directory,
+                           graph_attr={'margin': '0'},
+                           edge_attr={'arrowtail': 'none', 'penwidth': '.5'},
+                           **kwargs)
 
     if highlight is not None:
         def node_format(f, dw=set(highlight.downset), up=set(highlight.upset)):
@@ -68,7 +67,7 @@ def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, re
         name = node_name(f)
         dot.node(name, node_label(f), node_format(f))
         dot.edges((name, node_name(n))
-            for n in sorted(node_neighbors(f), key=sortkey))
+                  for n in sorted(node_neighbors(f), key=sortkey))
 
     if render or view:
         dot.render(view=view)  # pragma: no cover
@@ -82,5 +81,6 @@ def render_all(maximal_label=MAXIMAL_LABEL, topdown=TOPDOWN,
 
     for conf in Config:
         fs = FeatureSystem(conf)
-        dot = fs.graphviz(None, maximal_label, topdown, None, directory, format=format)
+        dot = fs.graphviz(maximal_label=maximal_label, topdown=topdown,
+                          directory=directory, format=format)
         dot.render()

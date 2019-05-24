@@ -84,8 +84,8 @@ class Parser(object):
     def __init__(self, features):
         ambiguous = list(substring_names(features))
         if ambiguous:
-            raise ValueError('feature names in substring relation: %r'
-                % ambiguous)
+            raise ValueError('feature names in substring relation:'
+                             ' %r' % ambiguous)
 
         regexes = map(self.make_regex, features)
         pattern = r'(?i)(?:%s)' % '|'.join(regexes)
@@ -94,12 +94,11 @@ class Parser(object):
 
     def __call__(self, string):
         indexes = (ma.lastindex - 1 for ma in self.regex.finditer(string))
-
         features = list(map(self.features.__getitem__, indexes))
 
-        if (len(remove_sign_sp(string)) !=
-            len(remove_sign_sp(''.join(features)))):
-            raise ValueError('unmatched feature splitting %r, '
-                'known features: %r' % (string, self.features))
+        if (len(remove_sign_sp(string))
+            != len(remove_sign_sp(''.join(features)))):
+            raise ValueError('unmatched feature splitting %r,'
+                             ' known features: %r' % (string, self.features))
 
         return features

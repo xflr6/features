@@ -95,11 +95,11 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         self._config = config
 
         context = concepts.Context.fromstring(config.context, frmat=config.format)
-        if (len(context.objects) != len(context.lattice.atoms) or
-            any((o,) != a.extent for o, a in
-                zip(context.objects, context.lattice.atoms))):
-            raise ValueError('context does not allow to refer '
-                'to each individual object: %r' % context)
+        if (len(context.objects) != len(context.lattice.atoms)
+            or any((o,) != a.extent
+                   for o, a in zip(context.objects, context.lattice.atoms))):
+            raise ValueError('context does not allow to refer'
+                             ' to each individual object: %r' % context)
 
         self.key = config.key  #: The unique name of the feature system.
         self.description = config.description  #: A description of the feature system.
@@ -133,7 +133,8 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         result = self._featuresets[concept.index]
 
         if result is self.infimum and not allow_invalid:
-            raise ValueError('%r (%s) is not a valid feature set in %r.' % (string, features, self))
+            raise ValueError('%r (%s) is not a valid feature set in'
+                             ' %r.' % (string, features, self))
         return result
 
     def __getitem__(self, index):
@@ -162,10 +163,14 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
 
     def __repr__(self):
         if self.key is None:
-            return '<%s object of %d atoms %d featuresets at %#x>' % (self.__class__.__name__,
-                len(self.atoms), len(self._featuresets), id(self))
+            return ('<%s object of %d atoms %d featuresets'
+                    ' at %#x>') % (self.__class__.__name__,
+                                   len(self.atoms), len(self._featuresets),
+                                   id(self))
         return '<%s(%r) of %d atoms %d featuresets>' % (self.__class__.__name__,
-            self.key, len(self.atoms), len(self._featuresets))
+                                                        self.key,
+                                                        len(self.atoms),
+                                                        len(self._featuresets))
 
     def __reduce__(self):
         if self.key is None:
@@ -202,7 +207,9 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         return map(self._featuresets.__getitem__, indexes)
 
     def graphviz(self, highlight=None, maximal_label=None, topdown=None,
-            filename=None, directory=None, render=False, view=False, **kwargs):
+                 filename=None, directory=None, render=False, view=False,
+                 **kwargs):
         """Return the system lattice visualization as graphviz source."""
         return visualize.featuresystem(self, highlight, maximal_label,
-            topdown, filename, directory, render, view, **kwargs)
+                                       topdown, filename, directory,
+                                       render, view, **kwargs)
