@@ -202,7 +202,7 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         return map(self._featuresets.__getitem__, indexes)
 
     def graphviz(self, highlight=None, maximal_label=None, topdown=None,
-            filename=None, directory=None, render=False, view=False):
+            filename=None, directory=None, render=False, view=False, **kwargs):
         """Return the system lattice visualization as graphviz source."""
         return visualize.featuresystem(self, highlight, maximal_label,
-            topdown, filename, directory, render, view)
+            topdown, filename, directory, render, view, **kwargs)

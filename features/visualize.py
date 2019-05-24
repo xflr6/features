@@ -20,7 +20,7 @@ LABEL_GETTERS = [
 NEIGHBORS_GETTERS = [lambda f: f.lower_neighbors, lambda f: f.upper_neighbors]
 
 
-def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, render, view):
+def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, render, view, **kwargs):
     if maximal_label is None:
         maximal_label = MAXIMAL_LABEL
 
@@ -38,7 +38,8 @@ def featuresystem(fs, highlight, maximal_label, topdown, filename, directory, re
         filename=filename,
         directory=directory,
         graph_attr=dict(margin='0'),
-        edge_attr=dict(arrowtail='none', penwidth='.5')
+        edge_attr=dict(arrowtail='none', penwidth='.5'),
+        **kwargs
     )
 
     if highlight is not None:
@@ -81,7 +82,5 @@ def render_all(maximal_label=MAXIMAL_LABEL, topdown=TOPDOWN,
 
     for conf in Config:
         fs = FeatureSystem(conf)
-        dot = fs.graphviz(None, maximal_label, topdown, None, directory)
-        if format is not None:
-            dot.format = format
+        dot = fs.graphviz(None, maximal_label, topdown, None, directory, format=format)
         dot.render()
