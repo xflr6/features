@@ -8,7 +8,8 @@ PY2 = (sys.version_info.major == 2)
 if PY2:
     string_types = basestring
 
-    from itertools import imap as map, izip as zip
+    from itertools import (imap as map,
+                           izip as zip)
 
     def py2_bool_to_nonzero(cls):
         cls.__nonzero__ = cls.__bool__
