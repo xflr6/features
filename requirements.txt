@@ -1,6 +1,6 @@
 # development environment: install in development mode
 -e .[dev,test,docs]
 # exact dependency versions used in development
-concepts==0.8
+concepts==0.8.1
 fileconfig==0.5.9
 graphviz==0.11
