@@ -12,6 +12,11 @@ setup(
     keywords='lattice morphology phonology learning fca',
     license='MIT',
     url='https://github.com/xflr6/features',
+    project_urls={
+        'Documentation': 'https://features.readthedocs.io',
+        'Changelog': 'https://features.readthedocs.io/en/latest/changelog.html',
+        'Issue Tracker': 'https://github.com/xflr6/features/issues',
+    },
     packages=find_packages(),
     package_data={'features': ['config.ini']},
     zip_safe=False,
