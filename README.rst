@@ -1,9 +1,9 @@
 Features
 ========
 
-|PyPI version| |License| |Supported Python| |Format| |Docs|
+|PyPI version| |License| |Supported Python| |Format|
 
-|Travis| |Codecov|
+|Travis| |Codecov| |Readthedocs-stable| |Readthedocs-latest|
 
 Features is a simple implementation of **feature set algebra** in Python.
 
@@ -189,12 +189,16 @@ Features is distributed under the `MIT license`_.
 .. |Format| image:: https://img.shields.io/pypi/format/features.svg
     :target: https://pypi.org/project/features/
     :alt: Format
-.. |Docs| image:: https://readthedocs.org/projects/features/badge/?version=stable
-    :target: https://features.readthedocs.io/en/stable/
-    :alt: Readthedocs
+
 .. |Travis| image:: https://img.shields.io/travis/xflr6/features.svg
     :target: https://travis-ci.org/xflr6/features
     :alt: Travis
 .. |Codecov| image:: https://codecov.io/gh/xflr6/features/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/xflr6/features
     :alt: Codecov
+.. |Readthedocs-stable| image:: https://readthedocs.org/projects/features/badge/?version=stable
+    :target: https://features.readthedocs.io/en/stable/?badge=stable
+    :alt: Readthedocs stable
+.. |Readthedocs-latest| image:: https://readthedocs.org/projects/features/badge/?version=latest
+    :target: https://features.readthedocs.io/en/latest/?badge=latest
+    :alt: Readthedocs latest
