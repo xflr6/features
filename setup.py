@@ -16,6 +16,8 @@ setup(
         'Documentation': 'https://features.readthedocs.io',
         'Changelog': 'https://features.readthedocs.io/en/latest/changelog.html',
         'Issue Tracker': 'https://github.com/xflr6/features/issues',
+        'CI': 'https://travis-ci.org/xflr6/features',
+        'Coverage': 'https://codecov.io/gh/xflr6/features',
     },
     packages=find_packages(),
     package_data={'features': ['config.ini']},
