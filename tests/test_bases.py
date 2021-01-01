@@ -1,7 +1,7 @@
 # test_bases.py
 
-import sys
 import pickle
+import sys
 
 import pytest
 

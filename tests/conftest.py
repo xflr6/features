@@ -2,8 +2,8 @@
 
 import pytest
 
-from features.systems import FeatureSystem
 from features.meta import Config
+from features.systems import FeatureSystem
 
 
 @pytest.fixture(scope='session')

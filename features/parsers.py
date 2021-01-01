@@ -1,7 +1,7 @@
 # parsers.py - extract kown features from string
 
-import re
 from itertools import permutations
+import re
 
 from ._compat import map
 
@@ -11,6 +11,7 @@ __all__ = ['Parser']
 
 
 remove_sign = tools.generic_translate(delete='+-')
+
 
 remove_sign_sp = tools.generic_translate(delete='+- ')
 

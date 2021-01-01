@@ -12,10 +12,8 @@ TOPDOWN = False
 
 NAME_GETTERS = [lambda f: 'f%d' % f.index, lambda f: repr(f)]
 
-LABEL_GETTERS = [
-    lambda f: f.string.replace('-', '&minus;'),
-    lambda f: f. string_maximal.replace('-', '&minus;')
-]
+LABEL_GETTERS = [lambda f: f.string.replace('-', '&minus;'),
+                 lambda f: f. string_maximal.replace('-', '&minus;')]
 
 NEIGHBORS_GETTERS = [lambda f: f.lower_neighbors, lambda f: f.upper_neighbors]
 

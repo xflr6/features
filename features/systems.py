@@ -6,7 +6,10 @@ import concepts
 
 from ._compat import string_types, zip, map, with_metaclass
 
-from . import meta, bases, parsers, visualize
+from . import bases
+from . import meta
+from . import parsers
+from . import visualize
 
 __all__ = ['FeatureSystem']
 
