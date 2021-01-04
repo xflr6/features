@@ -8,10 +8,10 @@ from .systems import FeatureSystem
 __all__ = ['Config', 'FeatureSystem', 'add_config', 'make_features']
 
 __title__ = 'features'
-__version__ = '0.5.13.dev0'
+__version__ = '0.6.dev0'
 __author__ = 'Sebastian Bank <sebastian.bank@uni-leipzig.de>'
 __license__ = 'MIT, see LICENSE.txt'
-__copyright__ = 'Copyright (c) 2014-2019 Sebastian Bank'
+__copyright__ = 'Copyright (c) 2014-2021 Sebastian Bank'
 
 
 def add_config(filename):

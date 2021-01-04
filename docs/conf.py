@@ -21,11 +21,11 @@ import features
 # -- Project information -----------------------------------------------------
 
 project = 'features'
-copyright = '2014-2019, Sebastian Bank'
+copyright = '2014-2021, Sebastian Bank'
 author = 'Sebastian Bank'
 
 # The short X.Y version
-version = '0.5.13.dev0'
+version = '0.6.dev0'
 # The full version, including alpha/beta/rc tags
 release = version
 
