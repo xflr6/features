@@ -10,7 +10,7 @@ MAXIMAL_LABEL = False
 
 TOPDOWN = False
 
-NAME_GETTERS = [lambda f: 'f%d' % f.index, lambda f: repr(f)]
+NAME_GETTERS = [lambda f: f'f{f.index:d}', lambda f: repr(f)]
 
 LABEL_GETTERS = [lambda f: f.string.replace('-', '&minus;'),
                  lambda f: f. string_maximal.replace('-', '&minus;')]
@@ -26,10 +26,11 @@ def featuresystem(fs, highlight, maximal_label, topdown,
     if topdown is None:
         topdown = TOPDOWN
 
-    name = fs.key if fs.key is not None else '%#x' % id(fs)
+    name = fs.key if fs.key is not None else f'{id(fs):#x}'
 
     if filename is None:
-        filename = 'fs-%s%s.gv' % (name, '-max' if maximal_label else '')
+        extra = '-max' if maximal_label else ''
+        filename = f'fs-{name}{extra}.gv'
 
     dot = graphviz.Digraph(name=name,
                            comment=repr(fs),

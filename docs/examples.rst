@@ -63,7 +63,7 @@ Pretty-print the meaning -> word form mapping.
 .. code:: python
 
     >>> for meaning, form in paradigm.items():
-    ...     print('%s | %s' % (meaning.string_extent, form))
+    ...     print(meaning.string_extent} form, sep=' | ')
     1sg.pres | am
     1pl.pres | are
     2sg.pres | are
@@ -95,7 +95,7 @@ Pretty-print the form -> occurrences mapping.
     >>> for form in occurrences:
     ...     meanings = occurrences[form]
     ...     labels = ', '.join(m.string_extent for m in meanings)
-    ...     print('%4s | %s' % (form, labels))
+    ...     print(f'{form:>4} | {labels}')
       am | 1sg.pres
      are | 1pl.pres, 2sg.pres, 2pl.pres, 3pl.pres
       is | 3sg.pres
@@ -110,7 +110,7 @@ Show the **common features** for all word forms, computed with the
     >>> for form in occurrences:
     ...     meanings = occurrences[form]
     ...     common = fs.join(meanings)
-    ...     print('%4s | %s' % (form, common))
+    ...     print(f'{form:>4} | {common}')
       am | [+1 +sg -pst]
      are | [-pst]
       is | [+3 +sg -pst]

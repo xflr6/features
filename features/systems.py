@@ -4,8 +4,6 @@
 
 import concepts
 
-from ._compat import string_types, zip, map, with_metaclass
-
 from . import bases
 from . import meta
 from . import parsers
@@ -14,7 +12,7 @@ from . import visualize
 __all__ = ['FeatureSystem']
 
 
-class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
+class FeatureSystem(metaclass=meta.FeatureSystemMeta):
     """Feature set lattice defined by config instance.
 
     Usage:
@@ -102,7 +100,7 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
             or any((o,) != a.extent
                    for o, a in zip(context.objects, context.lattice.atoms))):
             raise ValueError('context does not allow to refer'
-                             ' to each individual object: %r' % context)
+                             f' to each individual object: {context!r}')
 
         self.key = config.key  #: The unique name of the feature system.
         self.description = config.description  #: A description of the feature system.
@@ -125,7 +123,7 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
 
     def __call__(self, string='', allow_invalid=False):
         """Idempotently return featureset from parsed feature ``string``."""
-        if isinstance(string, string_types):
+        if isinstance(string, str):
             features = self.parse(string)
         elif isinstance(string, self.FeatureSet):
             return string
@@ -136,8 +134,8 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         result = self._featuresets[concept.index]
 
         if result is self.infimum and not allow_invalid:
-            raise ValueError('%r (%s) is not a valid feature set in'
-                             ' %r.' % (string, features, self))
+            raise ValueError(f'{string!r} ({features}) is not'
+                             f' a valid feature set in {self!r}.')
         return result
 
     def __getitem__(self, index):
@@ -157,7 +155,7 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
         return other in self._featuresets
 
     def __str__(self):
-        description = '\n%r' % self.description if self.description else ''
+        description = '\n{!r}'.format(self.description if self.description else '')
         tmpl = '    %%-%ds -> %%s' % max(len(str(f))for f in self._featuresets[1:])
         return '%r%s\n%s\n%s\n%s' % (self, description, tmpl % (self.infimum, ''),
             tmpl % ('', ' '.join(str(c) for c in self.infimum.upper_neighbors)),
@@ -166,14 +164,13 @@ class FeatureSystem(with_metaclass(meta.FeatureSystemMeta, object)):
 
     def __repr__(self):
         if self.key is None:
-            return ('<%s object of %d atoms %d featuresets'
-                    ' at %#x>') % (self.__class__.__name__,
-                                   len(self.atoms), len(self._featuresets),
-                                   id(self))
-        return '<%s(%r) of %d atoms %d featuresets>' % (self.__class__.__name__,
-                                                        self.key,
-                                                        len(self.atoms),
-                                                        len(self._featuresets))
+            return (f'<{self.__class__.__name__} object'
+                    f' of { len(self.atoms)} atoms'
+                    f' {len(self._featuresets)} featuresets'
+                    f' at {id(self):#x}>')
+        return (f'<{self.__class__.__name__}({self.key!r})'
+                f' of {len(self.atoms)} atoms'
+                f' {len(self._featuresets)} featuresets>')
 
     def __reduce__(self):
         if self.key is None:

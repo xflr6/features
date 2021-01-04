@@ -1,14 +1,12 @@
 # bases.py - relations, comparisons, operations
 
-from ._compat import map, py2_bool_to_nonzero, with_metaclass
-
-from . import meta, tools
+from . import meta
+from . import tools
 
 __all__ = ['FeatureSet']
 
 
-@py2_bool_to_nonzero
-class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
+class FeatureSet(metaclass=meta.FeatureSetMeta):
     """Formal concept intent as ordered set of features.
 
     Usage:
@@ -110,7 +108,7 @@ class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
         self.string_extent = ' '.join(concept.extent)  #: Space-concatenated extent labels.
 
     def __repr__(self):
-        return '%s(%r)' % (self.__class__.__name__, self.string)
+        return f'{self.__class__.__name__}({self.string!r})'
 
     def __reduce__(self):
         if self.system.key is None:
@@ -119,11 +117,11 @@ class FeatureSet(with_metaclass(meta.FeatureSetMeta, object)):
 
     def __str__(self):
         """Return the concise string representation."""
-        return '[%s]' % self.string
+        return f'[{self.string}]'
 
     def __strmax__(self):
         """Return the verbose string representation."""
-        return '[%s]' % self.string_maximal
+        return f'[{self.string_maximal}]'
 
     def __bool__(self):
         """Return ``True`` iff the set has features."""

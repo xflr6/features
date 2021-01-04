@@ -125,7 +125,7 @@ extent order:
 .. code:: python
 
     >>> for f in fs:
-    ...     print('%s %s' % (f, f.concept.extent))
+    ...     print(f, f.concept.extent)
     [+1 -1 +2 -2 +3 -3 +sg +pl -sg -pl] ()
     [+1 +sg] ('1s',)
     [+1 +pl] ('1p',)
@@ -334,7 +334,7 @@ from an ASCII-art style table:
     <FeatureSystem object of 4 atoms 10 featuresets at 0x...>
 
     >>> for f in fs:
-    ...     print('%s %s' % (f, f.concept.extent))
+    ...     print(f, f.concept.extent)
     [+male -male +adult -adult] ()
     [+male +adult] ('man',)
     [-male +adult] ('woman',)
@@ -400,10 +400,10 @@ Retrieve feature sets, extents and intents:
     >>> print(fs('+high'))
     [+high -low]
 
-    >>> print('high round = %s, %s' % fs('high round').concept.extent)
+    >>> print('high round = {}, {}'.format(*fs('high round').concept.extent))
     high round = y, u
 
-    >>> print('i, e, o = %s' % fs.lattice[('i', 'e', 'o')].intent)
+    >>> print('i, e, o = {}'.format(*fs.lattice[('i', 'e', 'o')].intent))
     i, e, o = -low
 
 

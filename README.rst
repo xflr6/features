@@ -124,7 +124,7 @@ feature sets**:
     [FeatureSet('+1'), FeatureSet('-3'), FeatureSet('-2'), FeatureSet('')]
 
     >>> for f in fs:  # doctest: +ELLIPSIS
-    ...     print('[%s] <-> {%s}' % (f.string_maximal, f.string_extent))
+    ...     print(f'[{f.string_maximal}] <-> {{{f.string_extent}}}')
     [+1 -1 +2 -2 +3 -3 +sg +pl -sg -pl] <-> {}
     [+1 -2 -3 +sg -pl] <-> {1s}
     ...

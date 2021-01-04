@@ -1,12 +1,18 @@
 # meta.py - retrieve feature system from config file section
 
-import fileconfig
+import copyreg
 
-from ._compat import string_types, register_reduce
+import fileconfig
 
 __all__ = ['Config', 'FeatureSystemMeta', 'FeatureSetMeta']
 
 DEFAULT = 'default'
+
+
+def register_reduce(mcls):
+    """Register __reduce__ as reduction function for mcls instances."""
+    copyreg.pickle(mcls, mcls.__reduce__)
+    return mcls
 
 
 class Config(fileconfig.Stacked):
@@ -38,13 +44,13 @@ class FeatureSystemMeta(type):
         if isinstance(config, self):
             return config
 
-        if isinstance(config, string_types):
+        if isinstance(config, str):
             config = Config(config)
 
         if config.key is not None and config.key in self.__map:
             inst = self.__map[config.key]
         else:
-            inst = super(FeatureSystemMeta, self).__call__(config)
+            inst = super().__call__(config)
             self.__map.update(dict.fromkeys(inst._config.names, inst))
 
         if string is not None:
@@ -65,7 +71,7 @@ class FeatureSetMeta(type):
     def __repr__(self):  # noqa: N804
         if self.system is None:
             return type.__repr__(self)
-        return '<class %r of %r>' % (self.__name__, self.system)
+        return f'<class {self.__name__!r} of {self.system!r}>'
 
     def __reduce__(self):  # noqa: N804
         if self.system is None:

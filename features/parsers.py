@@ -3,8 +3,6 @@
 from itertools import permutations
 import re
 
-from ._compat import map
-
 from . import tools
 
 __all__ = ['Parser']
@@ -35,15 +33,15 @@ def make_regex(string):
     if string and string[0] in '+-':
         sign, name = string[0], string[1:]
         if not name or '+' in name or '-' in name:
-            raise ValueError('inappropriate feature name: %r' % string)
+            raise ValueError(f'inappropriate feature name: {string!r}')
 
-        tmpl = r'([+]?%s)' if sign == '+' else r'(-%s)'
-        return tmpl % name
+        tmpl = r'([+]?{})' if sign == '+' else r'(-{})'
+        return tmpl.format(name)
 
     if not string or '+' in string or '-' in string:
-        raise ValueError('inappropriate feature name: %r' % string)
+        raise ValueError(f'inappropriate feature name: {string!r}')
 
-    return r'(%s)' % string
+    return rf'({string})' 
 
 
 def substring_names(features):
@@ -86,10 +84,10 @@ class Parser(object):
         ambiguous = list(substring_names(features))
         if ambiguous:
             raise ValueError('feature names in substring relation:'
-                             ' %r' % ambiguous)
+                             f' {ambiguous!r}')
 
         regexes = map(self.make_regex, features)
-        pattern = r'(?i)(?:%s)' % '|'.join(regexes)
+        pattern = r'(?i)(?:{})'.format('|'.join(regexes))
         self.features = features
         self.regex = re.compile(pattern)
 
@@ -99,7 +97,7 @@ class Parser(object):
 
         if (len(remove_sign_sp(string))
             != len(remove_sign_sp(''.join(features)))):
-            raise ValueError('unmatched feature splitting %r,'
-                             ' known features: %r' % (string, self.features))
+            raise ValueError(f'unmatched feature splitting {string!r},'
+                             f' known features: {self.features!r}')
 
         return features

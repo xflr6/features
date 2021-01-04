@@ -1,7 +1,6 @@
 # test_bases.py
 
 import pickle
-import sys
 
 import pytest
 
@@ -52,8 +51,7 @@ def test_upper_neighbors_nonsup(fs, features, expected):
     ('1sg', '1', ['+1', '-3 +sg', '-2 +sg']),
     ('1', '1sg', ['+1', '-3 +sg', '-2 +sg']),
     pytest.param('1sg', '1pl', ['-3 +sg', '-2 +sg', '-3 +pl', '-2 +pl', '+1'],
-                 marks=pytest.mark.xfail(sys.version_info.major == 3,
-                                         reason='TODO: fix order')),
+                 marks=pytest.mark.xfail(reason='TODO: fix order')),
 ])
 def test_upper_neighbors_union_nonsup(fs, features, other, expected):
     features, other = (fs(f) for f in (features, other))
