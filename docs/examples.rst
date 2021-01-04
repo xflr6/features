@@ -63,7 +63,7 @@ Pretty-print the meaning -> word form mapping.
 .. code:: python
 
     >>> for meaning, form in paradigm.items():
-    ...     print(meaning.string_extent} form, sep=' | ')
+    ...     print(meaning.string_extent, form, sep=' | ')
     1sg.pres | am
     1pl.pres | are
     2sg.pres | are
