@@ -3,7 +3,7 @@ Features
 
 |PyPI version| |License| |Supported Python| |Format|
 
-|Travis| |Codecov| |Readthedocs-stable| |Readthedocs-latest|
+|Build| |Codecov| |Readthedocs-stable| |Readthedocs-latest|
 
 Features is a simple implementation of **feature set algebra** in Python.
 
@@ -190,9 +190,9 @@ Features is distributed under the `MIT license`_.
     :target: https://pypi.org/project/features/
     :alt: Format
 
-.. |Travis| image:: https://img.shields.io/travis/xflr6/features.svg
-    :target: https://travis-ci.org/xflr6/features
-    :alt: Travis
+.. |Build| image:: https://github.com/xflr6/features/actions/workflows/build.yaml/badge.svg
+    :target: https://github.com/xflr6/features/actions/workflows/build.yaml?query=branch%3Amaster
+    :alt: Build
 .. |Codecov| image:: https://codecov.io/gh/xflr6/features/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/xflr6/features
     :alt: Codecov
