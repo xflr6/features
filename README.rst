@@ -190,7 +190,7 @@ Features is distributed under the `MIT license`_.
     :target: https://pypi.org/project/features/
     :alt: Format
 
-.. |Build| image:: https://github.com/xflr6/features/actions/workflows/build.yaml/badge.svg
+.. |Build| image:: https://github.com/xflr6/features/actions/workflows/build.yaml/badge.svg?branch=master
     :target: https://github.com/xflr6/features/actions/workflows/build.yaml?query=branch%3Amaster
     :alt: Build
 .. |Codecov| image:: https://codecov.io/gh/xflr6/features/branch/master/graph/badge.svg
