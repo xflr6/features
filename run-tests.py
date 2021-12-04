@@ -10,7 +10,9 @@ import pytest
 
 SELF = pathlib.Path(__file__)
 
-ARGS = [#'--pdb',
+ARGS = [#'--collect-only',
+        #'--verbose',
+        #'--pdb',
         #'--exitfirst',  # a.k.a. -x
         #'-W', 'error',
        ]
