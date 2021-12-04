@@ -1,17 +1,26 @@
 #!/usr/bin/env python3
 
+"""Run the tests with https://pytest.org."""
+
+import pathlib
 import platform
 import sys
 
 import pytest
 
-ARGS = [
-    #'--pdb',
-    #'--exitfirst',
-]
+SELF = pathlib.Path(__file__)
 
-if platform.system() == 'Windows':
-    if 'idlelib' in sys.modules:
-        ARGS.extend(['--capture=sys', '--color=no'])
+ARGS = [#'--pdb',
+        #'--exitfirst',  # a.k.a. -x
+        #'-W', 'error',
+       ]
 
-sys.exit(pytest.main(ARGS + sys.argv[1:]))
+if platform.system() == 'Windows' and 'idlelib' in sys.modules:
+    ARGS += ['--capture=sys', '--color=no']
+
+
+print('run', [SELF.name] + sys.argv[1:])
+args = ARGS + sys.argv[1:]
+
+print(f'pytest.main({args!r})')
+sys.exit(pytest.main(args))
