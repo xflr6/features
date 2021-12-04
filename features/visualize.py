@@ -64,7 +64,7 @@ def featuresystem(fs, highlight, maximal_label, topdown,
 
     for f in fs._featuresets:
         name = node_name(f)
-        dot.node(name, node_label(f), node_format(f))
+        dot.node(name, node_label(f), _attributes=node_format(f))
         dot.edges((name, node_name(n))
                   for n in sorted(node_neighbors(f), key=sortkey))
 
