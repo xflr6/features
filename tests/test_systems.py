@@ -1,5 +1,3 @@
-# test_systems.py
-
 import pickle
 
 import pytest
@@ -41,13 +39,13 @@ def test_pickle_instance_noname(fs_noname):
     assert isinstance(inst, FeatureSystem)
 
 
-@pytest.mark.parametrize('features, expected', [
-    (['1sg', '+1', '+sg'], ['+sg', '+1',
-                            '-3 +sg', '-2 +sg', '-1 +sg',
-                            '+1 +sg', '+1 +pl',
-                            '+2 +sg', '+3 +sg',
-                            '+1 -1 +2 -2 +3 -3 +sg +pl -sg -pl']),
-])
+@pytest.mark.parametrize(
+    'features, expected',
+    [(['1sg', '+1', '+sg'], ['+sg', '+1',
+                             '-3 +sg', '-2 +sg', '-1 +sg',
+                             '+1 +sg', '+1 +pl',
+                             '+2 +sg', '+3 +sg',
+                             '+1 -1 +2 -2 +3 -3 +sg +pl -sg -pl'])])
 def test_downset_union(fs, features, expected):
     features = [fs(f) for f in features]
     expected = [fs(e, allow_invalid=True) for e in expected]

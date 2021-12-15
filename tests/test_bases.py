@@ -1,5 +1,3 @@
-# test_bases.py
-
 import pickle
 
 import pytest
@@ -36,48 +34,48 @@ def test_pickle_instance_noname(fs_noname):
     assert isinstance(inst, FeatureSet)
 
 
-@pytest.mark.parametrize('features, expected', [
-    ('1sg', ['+1', '-3 +sg', '-2 +sg']),
-])
+@pytest.mark.parametrize(
+    'features, expected',
+    [('1sg', ['+1', '-3 +sg', '-2 +sg'])])
 def test_upper_neighbors_nonsup(fs, features, expected):
     features = fs(features)
     expected = [fs(e) for e in expected]
     assert features._upper_neighbors_nonsup() == expected
 
 
-@pytest.mark.parametrize('features, other, expected', [
-    pytest.param('1sg', '1sg', ['+1', '-3 +sg', '-2 +sg'],
-                 marks=pytest.mark.xfail(reason='TODO: fix order')),
-    ('1sg', '1', ['+1', '-3 +sg', '-2 +sg']),
-    ('1', '1sg', ['+1', '-3 +sg', '-2 +sg']),
-    pytest.param('1sg', '1pl', ['-3 +sg', '-2 +sg', '-3 +pl', '-2 +pl', '+1'],
-                 marks=pytest.mark.xfail(reason='TODO: fix order')),
-])
+@pytest.mark.parametrize(
+    'features, other, expected',
+    [pytest.param('1sg', '1sg', ['+1', '-3 +sg', '-2 +sg'],
+                  marks=pytest.mark.xfail(reason='TODO: fix order')),
+     ('1sg', '1', ['+1', '-3 +sg', '-2 +sg']),
+     ('1', '1sg', ['+1', '-3 +sg', '-2 +sg']),
+     pytest.param('1sg', '1pl', ['-3 +sg', '-2 +sg', '-3 +pl', '-2 +pl', '+1'],
+                  marks=pytest.mark.xfail(reason='TODO: fix order'))])
 def test_upper_neighbors_union_nonsup(fs, features, other, expected):
     features, other = (fs(f) for f in (features, other))
     expected = [fs(e) for e in expected]
     assert list(features._upper_neighbors_union_nonsup(other)) == expected
 
 
-@pytest.mark.parametrize('features, expected', [
-    ('1sg', ['+1 +sg',
-             '+1', '-3 +sg', '-2 +sg',
-             '+sg', '-3', '-2']),
-])
+@pytest.mark.parametrize(
+    'features, expected',
+    [('1sg', ['+1 +sg',
+              '+1', '-3 +sg', '-2 +sg',
+              '+sg', '-3', '-2'])])
 def test_upset_nonsup(fs, features, expected):
     features = fs(features)
     expected = [fs(e) for e in expected]
     assert list(features._upset_nonsup()) == expected
 
 
-@pytest.mark.parametrize('features, other, expected', [
-    ('1sg', '1pl', ['+1 +sg', '+1 +pl',
-                    '+1',
-                    '-3 +sg', '-2 +sg',
-                    '-3 +pl', '-2 +pl',
-                    '+sg', '+pl',
-                    '-3', '-2']),
-])
+@pytest.mark.parametrize(
+    'features, other, expected',
+    [('1sg', '1pl', ['+1 +sg', '+1 +pl',
+                     '+1',
+                     '-3 +sg', '-2 +sg',
+                     '-3 +pl', '-2 +pl',
+                     '+sg', '+pl',
+                     '-3', '-2'])])
 def test_upset_union_nonsup(fs, features, other, expected):
     features, other = (fs(f) for f in (features, other))
     expected = [fs(e) for e in expected]
