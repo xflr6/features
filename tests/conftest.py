@@ -1,4 +1,4 @@
-# conftest.py
+"""pytest fixtures."""
 
 import pytest
 

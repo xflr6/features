@@ -1,4 +1,4 @@
-# meta.py - retrieve feature system from config file section
+"""Retrieve feature system from config file section."""
 
 import copyreg
 

@@ -1,5 +1,3 @@
-# setup.py
-
 import io
 from setuptools import setup, find_packages
 

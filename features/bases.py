@@ -1,4 +1,4 @@
-# bases.py - relations, comparisons, operations
+"""Relations, comparisons, and operations."""
 
 from . import meta
 from . import tools

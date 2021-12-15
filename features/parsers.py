@@ -1,4 +1,4 @@
-# parsers.py - extract kown features from string
+"""Extract kown features from string."""
 
 from itertools import permutations
 import re

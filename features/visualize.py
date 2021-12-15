@@ -1,4 +1,4 @@
-# visualize.py - generate graphviz dot source of feature lattice
+"""Generate graphviz DOT source of feature lattice."""
 
 import graphviz
 

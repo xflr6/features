@@ -1,6 +1,4 @@
-# systems.py - build feature set lattice from FCA concept lattice
-
-"""Lattice of possible feature sets."""
+"""Build lattice of possible feature sets from FCA concept lattice."""
 
 import concepts
 
