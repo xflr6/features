@@ -21,7 +21,7 @@ setup(
     package_data={'features': ['config.ini']},
     zip_safe=False,
     platforms='any',
-    python_requires='>=3.6',
+    python_requires='>=3.7',
     install_requires=[
         'concepts~=0.7',
         'fileconfig~=0.5',
@@ -40,7 +40,6 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
