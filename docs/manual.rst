@@ -16,7 +16,7 @@ as commonly used in linguistics. It runs under both Python 3.7+ and is
     $ pip install features
 
 For a system-wide install, this typically requires administrator access. For an
-isolated installation, you can run the same inside a :mod:`py3:venv` or a
+isolated installation, you can run the same inside a :mod:`py:venv` or a
 virtualenv_.
 
 The pip-command will automatically download and install the (pure-python)
