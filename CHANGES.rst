@@ -7,7 +7,7 @@ Version 0.6 (in development)
 
 Drop Python 2 support.
 
-Drop Python 3.5 and 3.6 support and tag Python 3.9, 3.10, and 3.11 support.
+Drop Python 3.5, 3.6, and 3.7 support and tag Python 3.9, 3.10, and 3.11 support.
 
 
 Version 0.5.12
