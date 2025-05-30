@@ -1,7 +1,7 @@
 Features
 ========
 
-|PyPI version| |License| |Supported Python| |Format|
+|PyPI version| |License| |Supported Python| |Downloads|
 
 |Build| |Codecov| |Readthedocs-stable| |Readthedocs-latest|
 
@@ -186,9 +186,9 @@ Features is distributed under the `MIT license`_.
 .. |Supported Python| image:: https://img.shields.io/pypi/pyversions/features.svg
     :target: https://pypi.org/project/features/
     :alt: Supported Python Versions
-.. |Format| image:: https://img.shields.io/pypi/format/features.svg
-    :target: https://pypi.org/project/features/
-    :alt: Format
+.. |Downloads| image:: https://img.shields.io/pypi/dm/features.svg
+    :target: https://pypistats.org/packages/features
+    :alt: Monthly downloads
 
 .. |Build| image:: https://github.com/xflr6/features/actions/workflows/build.yaml/badge.svg?branch=master
     :target: https://github.com/xflr6/features/actions/workflows/build.yaml?query=branch%3Amaster
