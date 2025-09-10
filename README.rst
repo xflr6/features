@@ -134,7 +134,6 @@ feature sets**:
 
 See `the docs`_ on how to define, load, and use **your own feature systems**.
 
-
 Further reading
 ---------------
 
@@ -149,6 +148,20 @@ See also
 - concepts_ |--| Formal Concept Analysis with Python
 - fileconfig_ |--| Config file sections as objects
 - graphviz_ |--| Simple Python interface for Graphviz
+
+Publications
+------------
+
+The features_ and concepts_ packages were originally
+introduced as part of the following paper to cite:
+
+- Bank, Sebastian. 2014. The algebraic structure of morphosyntactic features. Nordlyd 41 (2), 239-259. `doi:10.7557/12.3414 <https://doi.org/10.7557/12.3414>`__
+
+They have been used in the following papers:
+
+- Bank, Sebastian. 2017. Assessing the typology of person portmanteaus. Morphology 27 (4), 459-495. `doi:10.1007/s11525-017-9305-z <https://doi.org/10.1007/s11525-017-9305-z>`__
+
+- Trommer, Jochen & Bank, Sebastian. 2017. Inflectional learning as local optimization. Morphology 27 (3), 383-422. `doi:10.1007/s11525-017-9304-0 <https://doi.org/doi:10.1007/s11525-017-9304-0>`__
 
 
 License
@@ -170,6 +183,7 @@ Features is distributed under the `MIT license`_.
 .. _concepts: https://pypi.org/project/concepts/
 .. _fileconfig: https://pypi.org/project/fileconfig/
 .. _graphviz: https://pypi.org/project/graphviz/
+.. _features: https://pypi.org/project/features/
 
 .. _MIT license: https://opensource.org/licenses/MIT
 
