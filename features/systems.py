@@ -96,7 +96,8 @@ class FeatureSystem(metaclass=meta.FeatureSystemMeta):
         context = concepts.Context.fromstring(config.context, frmat=config.format)
         if (len(context.objects) != len(context.lattice.atoms)
             or any((o,) != a.extent
-                   for o, a in zip(context.objects, context.lattice.atoms))):
+                   for o, a in zip(context.objects, context.lattice.atoms,
+                                   strict=True))):
             raise ValueError('context does not allow to refer'
                              f' to each individual object: {context!r}')
 
