@@ -4,43 +4,35 @@ on:
   - pull_request
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    name: run-tests (${{ matrix.os || 'linux' }}-${{ matrix.python-version }})
+    runs-on: ${{ matrix.os || 'ubuntu' }}-latest
     strategy:
       fail-fast: false
       matrix:
         include:
           - python-version: "3.14"
-            os: ubuntu-latest
-          - python-version: "3.14"
-            os: windows-latest
-          - python-version: "3.14"
-            os: macos-latest
+          - {os: windows, python-version: "3.14"}
+          - {os: macos, python-version: "3.14"}
           - python-version: "3.13"
-            os: ubuntu-latest
           - python-version: "3.12"
-            os: ubuntu-latest
           - python-version: "3.11"
-            os: ubuntu-latest
           - python-version: "3.10"
-            os: ubuntu-latest
           - python-version: pypy-3.11
-            os: ubuntu-latest
           - python-version: pypy-3.10
-            os: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Checkout source repo
         uses: actions/checkout@v4
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Pip install dependencies
+      - name: Pip install -e . --group test
         run: |
           echo "::group::Run python -m pip install --upgrade pip setuptools wheel"
           python -m pip install --upgrade pip setuptools wheel
           echo "::endgroup::"
-          echo "::group::Run pip install -e .[test]"
-          pip install -e .[test]
+          echo "::group::Run pip install -e . --group test"
+          pip install -e . --group test
           echo "::endgroup::"
       - name: Run tests
         run: python run-tests.py
