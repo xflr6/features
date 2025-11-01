@@ -79,6 +79,9 @@ typing = [
   "mypy",
 ]
 
+[tool.mypy]
+packages = ["features"]
+
 [tool.flake8]
 exclude = ["docs", "build", ".tox"]
 ignore = ["E126", "E128", "W503"]
