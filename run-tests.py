@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# flake8: noqa
 
 """Run the tests with https://pytest.org."""
 
@@ -18,7 +19,7 @@ ARGS = [#'--collect-only',
        ]
 
 if platform.system() == 'Windows' and 'idlelib' in sys.modules:
-    ARGS += ['--capture=sys', '--color=no']
+    ARGS += ['-p', 'no:faulthandler']
 
 
 print('run', [SELF.name] + sys.argv[1:])
