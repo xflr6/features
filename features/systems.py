@@ -164,7 +164,7 @@ class FeatureSystem(metaclass=meta.FeatureSystemMeta):
     def __repr__(self):
         if self.key is None:
             return (f'<{self.__class__.__name__} object'
-                    f' of { len(self.atoms)} atoms'
+                    f' of {len(self.atoms)} atoms'
                     f' {len(self._featuresets)} featuresets'
                     f' at {id(self):#x}>')
         return (f'<{self.__class__.__name__}({self.key!r})'

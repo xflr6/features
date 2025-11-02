@@ -41,7 +41,7 @@ def make_regex(string):
     if not string or '+' in string or '-' in string:
         raise ValueError(f'inappropriate feature name: {string!r}')
 
-    return rf'({string})' 
+    return rf'({string})'
 
 
 def substring_names(features):
@@ -51,7 +51,7 @@ def substring_names(features):
     [('pam', 'spam')]
     """
     names = tools.uniqued(map(remove_sign, features))
-    for l, r in permutations(names, 2):
+    for l, r in permutations(names, 2):  # noqa: E741
         if l in r:
             yield (l, r)
 
@@ -96,7 +96,7 @@ class Parser(object):
         features = list(map(self.features.__getitem__, indexes))
 
         if (len(remove_sign_sp(string))
-            != len(remove_sign_sp(''.join(features)))):
+            != len(remove_sign_sp(''.join(features)))):  # noqa: E129
             raise ValueError(f'unmatched feature splitting {string!r},'
                              f' known features: {self.features!r}')
 

@@ -1,7 +1,5 @@
 """Generic re-useable helpers."""
 
-import string
-
 __all__ = ['uniqued', 'butlast', 'generic_translate']
 
 
